@@ -16,7 +16,7 @@ namespace PokemonApp{
         
         //Constructor - method used for object initialization. We pass it the values we want 
         //to set for the object we are creating.
-        public Pokemon(string PokemonName, int PokemonNum, string PokemonType, int PokemonHealth, string PokemonAbility){
+        public Pokemon(string PokemonName, int PokemonNum, string PokemonType, int PokemonHealth, string PokemonAbility = "default?"){
             this.name = PokemonName;
             this.DexNumber = PokemonNum;
             this.type = PokemonType;
@@ -24,9 +24,18 @@ namespace PokemonApp{
             this.ability = PokemonAbility;
         }
 
+        public Pokemon(){
+
+        }
+
+        public Pokemon(string PokemonName){
+            this.name = PokemonName;
+            this.DexNumber = 12;
+        }
+
         //Instance method - depends on the state of an instance of that class. Belongs to the object. 
         public void PrintName(){
-            Console.WriteLine("My name is " + this.name + ".");
+            Console.WriteLine("My name is " + this.name + "." + " My number is " + this.DexNumber + ". My ability is " + this.ability);
         }
 
         //Static method - belongs to the class itself
@@ -34,7 +43,5 @@ namespace PokemonApp{
             Console.WriteLine("This is a static method, and I am a pokemon.");
         }
     }
-
-
 
 }
