@@ -5,7 +5,7 @@ namespace PokemonApp{
     class Pokemon{
         
         //Fields - by default they are Private. 
-        string name {get; set;}
+        public string name {get; set;}
         int DexNumber {get; set;}
         string type {get; set;}
         int health {get; set;}
@@ -41,6 +41,11 @@ namespace PokemonApp{
         //Static method - belongs to the class itself
         public static void PrintMessage(){
             Console.WriteLine("This is a static method, and I am a pokemon.");
+        }
+
+        //Method Overriding - ToString()
+        public override string ToString(){
+            return this.name + " " + this.type;
         }
     }
 

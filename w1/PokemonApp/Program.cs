@@ -1,6 +1,7 @@
 ﻿using System;
+using PokemonApp;
 
-namespace PokemonApp{
+namespace Program{
 
     class Program{
 
@@ -27,6 +28,8 @@ namespace PokemonApp{
             Console.WriteLine(Pokemon.isPokemon);
 
             Console.WriteLine(pikachu.ToString());
+
+            Console.WriteLine(pikachu.name);
 
         }
         
