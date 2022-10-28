@@ -2,7 +2,7 @@ using System;
 
 namespace PokemonApp{
 
-    class Pokemon{
+    class Pokemon : Animal {
         
         //Fields - by default they are Private. 
         public string name {get; set;}
@@ -17,7 +17,7 @@ namespace PokemonApp{
         //Constructor - method used for object initialization. We pass it the values we want 
         //to set for the object we are creating.
 
-        public Pokemon(string PokemonName, int PokemonNum, string PokemonType, int PokemonHealth, string PokemonAbility = "default?"){
+        public Pokemon(string PokemonName, int PokemonNum, string PokemonType, int PokemonHealth, string PokemonAbility = "default?") : base() {
 
             this.name = PokemonName;
             this.DexNumber = PokemonNum;
@@ -27,11 +27,11 @@ namespace PokemonApp{
         }
 
 
-        public Pokemon(){
+        public Pokemon() : base() {
 
         }
 
-        public Pokemon(string PokemonName){
+        public Pokemon(string PokemonName, string color, string habitat) : base( color, habitat ) {
             this.name = PokemonName;
             this.DexNumber = 12;
         }
