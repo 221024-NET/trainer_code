@@ -51,6 +51,16 @@ namespace PokemonApp{
         public override string ToString(){
             return this.name + " " + this.type;
         }
+
+        public override int CountLegs()
+        {
+            return this.numLegs;
+        }
+
+        public override string FindColor()
+        {
+            return "blue";
+        }
     }
 
 

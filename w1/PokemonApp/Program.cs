@@ -15,16 +15,26 @@ namespace Program{
 
             Pokemon charizard = new Pokemon("Charizard", "green", "ocean");
 
-            Animal newAnimal = new Animal("red", "Jungle", 5, 5, "feline");
-            Animal secondAnimal = new Animal();
+            // Animal newAnimal = new Animal("red", "Jungle", 5, 5, "feline");
+            // Animal secondAnimal = new Animal();
             
-            Console.WriteLine("SecondAnimal: ");
-            secondAnimal.Introduce();
+            // Console.WriteLine("SecondAnimal: ");
+            // secondAnimal.Introduce();
 
+            // newAnimal.Introduce();
 
-            newAnimal.Introduce();
+            Console.WriteLine("Charizard info: ");
             charizard.Introduce();
             charizard.PrintName();
+            Console.WriteLine(charizard.CountLegs());
+            Console.WriteLine(charizard.FindColor());
+
+
+            Console.WriteLine("Pupper info: ");
+            IAnimal pupper = new Dog(60, "woof");
+            Console.WriteLine(pupper.CountLegs());
+            Console.WriteLine(pupper.FindColor());
+            pupper.Speak();
 
 /*
             //Calling an Instance method - belongs to the object itself.

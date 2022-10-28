@@ -2,13 +2,13 @@ using System;
 
 namespace PokemonApp
 {
-    public class Animal
+    abstract class Animal
     {
         // Fields
         int age;
         string color;
         string habitat;
-        int numLegs;
+        public int numLegs { get; set; }
         string genus;
 
         // Constructors
@@ -34,6 +34,13 @@ namespace PokemonApp
         public void Introduce()
         {
             Console.WriteLine($"Hello! I am a {this.genus} with {this.numLegs} legs, I'm {this.color}, and I live in the {this.habitat}.");
+        }
+
+        public abstract int CountLegs();
+
+        public virtual string FindColor()
+        {
+            return this.color;
         }
     }
 }
