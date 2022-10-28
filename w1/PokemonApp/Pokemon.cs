@@ -6,7 +6,7 @@ namespace PokemonApp{
         
         //Fields - by default they are Private. 
         public string name {get; set;}
-        int DexNumber {get; set;}
+         internal int DexNumber {get; set;}
         string type {get; set;}
         int health {get; set;}
         string ability {get; set;}

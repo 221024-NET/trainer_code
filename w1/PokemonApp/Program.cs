@@ -1,7 +1,6 @@
 ﻿using System;
-using PokemonApp;
 
-namespace Program{
+namespace PokemonApp{
 
     class Program{
 
@@ -33,7 +32,7 @@ namespace Program{
 
             Console.WriteLine(pikachu.ToString());
 
-            Console.WriteLine(pikachu.name);
+            Console.WriteLine(pikachu.DexNumber);
 
         }
         
