@@ -2,11 +2,11 @@ using System;
 
 namespace PokemonApp{
 
-    class Pokemon{
+    class Pokemon : Animal {
         
         //Fields - by default they are Private. 
         public string name {get; set;}
-         internal int DexNumber {get; set;}
+        int DexNumber {get; set;}
         string type {get; set;}
         int health {get; set;}
         string ability {get; set;}
@@ -17,7 +17,7 @@ namespace PokemonApp{
         //Constructor - method used for object initialization. We pass it the values we want 
         //to set for the object we are creating.
 
-        public Pokemon(string PokemonName, int PokemonNum, string PokemonType, int PokemonHealth, string PokemonAbility = "default?"){
+        public Pokemon(string PokemonName, int PokemonNum, string PokemonType, int PokemonHealth, string PokemonAbility = "default?") : base() {
 
             this.name = PokemonName;
             this.DexNumber = PokemonNum;
@@ -27,19 +27,18 @@ namespace PokemonApp{
         }
 
 
-        public Pokemon(){
+        public Pokemon() : base() {
 
         }
 
-        public Pokemon(string PokemonName){
+        public Pokemon(string PokemonName, string color, string habitat) : base( color, habitat ) {
             this.name = PokemonName;
             this.DexNumber = 12;
         }
 
         //Instance method - depends on the state of an instance of that class. Belongs to the object. 
         public void PrintName(){
-            Console.WriteLine("My name is " + this.name + "." + " My number is " + this.DexNumber + ". My ability is " + this.ability);
-
+            Console.WriteLine("My name is " + this.name + ".");
         }
 
         //Static method - belongs to the class itself
@@ -51,7 +50,16 @@ namespace PokemonApp{
         public override string ToString(){
             return this.name + " " + this.type;
         }
-    }
 
+        public override int CountLegs()
+        {
+            return this.numLegs;
+        }
+
+        public override string FindColor()
+        {
+            return "blue";
+        }
+    }
 
 }

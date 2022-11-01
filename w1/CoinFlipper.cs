@@ -1,38 +1,44 @@
 using System;
 
-public class CoinFlipper
+public class Program
 {
 	// Fields
 	public int test = 0;
+	
 	
 	// Constructor
 	// Methods
 	//[access modifier] [modifier] [return type] [method name] ([parameters])
 	public static void Main()
 	{
-		bool loop = true;
-		while(loop)
-		{
-			CoinFlipper(); // models the ENTIRE behavior
-			
-			Console.WriteLine("Would you like to flip more coins?");
-			Console.WriteLine("Enter 'y' or 'Y' to run again, or anything else to exit:");
-			string playAgain = Console.ReadLine().ToUpper();
+		CoinFlipRepeat();
+	}
 
-			if( playAgain.Equals("Y"))
-			{
-				loop = true;
-			}
-			else
-			{
-				loop = false;
-			}
+	static void CoinFlipRepeat() {
+		bool loop = true;
+
+		while (loop == true) {
+		CoinFlipper();
+		Console.WriteLine("Would you like to flip the coin again?");
+		Console.WriteLine("y-yes or Y-yes other keys will exit");
+		string input = Console.ReadLine();
+
+	if (input.Equals("y") || (input.Equals("Y"))) {
+		CoinFlipper();
+		loop = true;
+	} 
+	else {
+		loop = false;
+	}
 
 		}
 	}
 
-	public static void CoinFlipper()
-	{
+
+
+
+
+	public static void CoinFlipper() {
 		Console.WriteLine("Starting Coin Flipper:");
 		
 		Console.WriteLine("Enter the number of coins to flip: ");
@@ -75,6 +81,7 @@ public class CoinFlipper
 			HoT(coin);
 		}
 	}
+
 	
 	public static void HoT(int coin)
 	{
@@ -86,5 +93,6 @@ public class CoinFlipper
 		{
 			Console.WriteLine("Tails");
 		}
+		
 	}
 }

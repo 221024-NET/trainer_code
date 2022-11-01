@@ -1,6 +1,7 @@
 ﻿using System;
+using PokemonApp;
 
-namespace PokemonApp{
+namespace Program{
 
     class Program{
 
@@ -11,10 +12,38 @@ namespace PokemonApp{
             Pokemon pikachu = new Pokemon("Pikachu", 25, "Electric", 12, "Static");
 
             Pokemon pikachu2 = new Pokemon("Pikachu", 25, "Electric", 12);
+<<<<<<< HEAD
             Pokemon charizard = new Pokemon("Charizard");
             
 
 
+=======
+
+            Pokemon charizard = new Pokemon("Charizard", "green", "ocean");
+
+            // Animal newAnimal = new Animal("red", "Jungle", 5, 5, "feline");
+            // Animal secondAnimal = new Animal();
+            
+            // Console.WriteLine("SecondAnimal: ");
+            // secondAnimal.Introduce();
+
+            // newAnimal.Introduce();
+
+            Console.WriteLine("Charizard info: ");
+            charizard.Introduce();
+            charizard.PrintName();
+            Console.WriteLine(charizard.CountLegs());
+            Console.WriteLine(charizard.FindColor());
+
+
+            Console.WriteLine("Pupper info: ");
+            IAnimal pupper = new Dog(60, "woof");
+            Console.WriteLine(pupper.CountLegs());
+            Console.WriteLine(pupper.FindColor());
+            pupper.Speak();
+
+/*
+>>>>>>> main
             //Calling an Instance method - belongs to the object itself.
             //Called by using object.method() 
             pikachu.PrintName();
@@ -32,8 +61,13 @@ namespace PokemonApp{
 
             Console.WriteLine(pikachu.ToString());
 
+<<<<<<< HEAD
             Console.WriteLine(pikachu.DexNumber);
 
+=======
+            Console.WriteLine(pikachu.name);
+*/
+>>>>>>> main
         }
         
 
