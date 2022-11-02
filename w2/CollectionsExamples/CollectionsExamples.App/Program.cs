@@ -11,6 +11,10 @@ namespace CollectionsExamples.App
 
             TimeSpan runTime = myTimer.Run();
             Console.WriteLine("Total elapsed time is: {0} ms", runTime.TotalMilliseconds);
+            TimeSpan runTimeS = myTimer.RunStack();
+            Console.WriteLine("Total elapsed time for Stack implementation is: {0} ms", runTimeS.TotalMilliseconds);
+            TimeSpan runTimeQ = myTimer.RunQueue();
+            Console.WriteLine("Total elapsed time for Queue implementation is: {0} ms", runTimeQ.TotalMilliseconds);
         }
     }
 }

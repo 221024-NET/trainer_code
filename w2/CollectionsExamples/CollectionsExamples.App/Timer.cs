@@ -27,5 +27,30 @@ namespace CollectionsExamples.App
             return ts;
         }
 
+        public TimeSpan RunStack()
+        {
+            DateTime start = DateTime.Now;
+
+            StackQueue temp = new StackQueue(0);
+            temp.clearStack();
+
+            DateTime stop = DateTime.Now;
+
+            TimeSpan ts = stop - start;
+            return ts;
+        }
+
+        public TimeSpan RunQueue()
+        {
+            DateTime start = DateTime.Now;
+
+            StackQueue temp = new StackQueue(1);
+            temp.clearQueue();
+
+            DateTime stop = DateTime.Now;
+
+            TimeSpan ts = stop - start;
+            return ts;
+        }
     }
 }
