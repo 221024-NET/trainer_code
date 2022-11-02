@@ -12,6 +12,12 @@ namespace Program{
             Pokemon pikachu = new Pokemon("Pikachu", 25, "Electric", 12, "Static");
 
             Pokemon pikachu2 = new Pokemon("Pikachu", 25, "Electric", 12);
+<<<<<<< HEAD
+            Pokemon charizard = new Pokemon("Charizard");
+            
+
+
+=======
 
             Pokemon charizard = new Pokemon("Charizard", "green", "ocean");
 
@@ -37,6 +43,7 @@ namespace Program{
             pupper.Speak();
 
 /*
+>>>>>>> main
             //Calling an Instance method - belongs to the object itself.
             //Called by using object.method() 
             pikachu.PrintName();
@@ -54,8 +61,13 @@ namespace Program{
 
             Console.WriteLine(pikachu.ToString());
 
+<<<<<<< HEAD
+            Console.WriteLine(pikachu.DexNumber);
+
+=======
             Console.WriteLine(pikachu.name);
 */
+>>>>>>> main
         }
         
 

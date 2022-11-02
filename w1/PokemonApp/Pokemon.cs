@@ -38,8 +38,7 @@ namespace PokemonApp{
 
         //Instance method - depends on the state of an instance of that class. Belongs to the object. 
         public void PrintName(){
-            Console.WriteLine("My name is " + this.name + "." + " My number is " + this.DexNumber + ". My ability is " + this.ability);
-
+            Console.WriteLine("My name is " + this.name + ".");
         }
 
         //Static method - belongs to the class itself
@@ -62,6 +61,5 @@ namespace PokemonApp{
             return "blue";
         }
     }
-
 
 }
