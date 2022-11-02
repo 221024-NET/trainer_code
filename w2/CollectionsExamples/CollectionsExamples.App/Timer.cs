@@ -18,10 +18,13 @@ namespace CollectionsExamples.App
             //Demo tmp = new Demo();
             //tmp.getDifferences();
 
-            Hashsets hashset = new Hashsets();
-             hashset.HashSetTest();
+            // Hashsets hashset = new Hashsets();
+            //  hashset.HashSetTest();
 
-            DictionaryTests tmp = new DictionaryTests();
+            Lists OurList = new Lists(1000);
+            //OurList.write();
+
+            // DictionaryTests tmp = new DictionaryTests();
             //tmp.printSomething();
 
 
