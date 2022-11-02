@@ -15,8 +15,11 @@ namespace CollectionsExamples.App
             DateTime start = DateTime.Now;
 
             // some time intensive action
-            Demo tmp = new Demo();
-            tmp.getDifferences();
+            //Demo tmp = new Demo();
+            //tmp.getDifferences();
+
+            Hashsets hashset = new Hashsets();
+             hashset.HashSetTest();
 
             // stop the timer
             DateTime stop = DateTime.Now;
