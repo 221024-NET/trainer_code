@@ -1,17 +1,21 @@
 using System.Text;
 using System.IO;
+using System.Xml.Serialization;
 
 namespace Wordle
 {
     public class User
     {
         // Fields
-        string userName;
-        string password;
-        int wins;
-        int losses;
-        double averageTurns;
-        int[] turns; // turns to win by index
+        [XmlAttribute]
+        public string userName { get; set; }
+        public string password { get; set; }
+        public int wins { get; set; }
+        public int losses { get; set; }
+        public double averageTurns {get; set; }
+        public int[] turns { get; set; } // turns to win by index
+
+        public XmlSerializer Serializer { get; } = new XmlSerializer(typeof(List<User>));
 
         // Costructors
         public User (){}
@@ -63,37 +67,36 @@ namespace Wordle
             return sum/count;
         }
 
-        public string DisplayRecord(string path)
+        public string DisplayRecord(string path, List<User> records)
         {
-            string[] records = File.ReadAllLines(path);
             StringBuilder result = new StringBuilder();
             
             result.AppendLine("Player \t\t Wins \t\t Losses \t\t Average turns to win");
-            foreach (string record in records)
-            {   
-                string[] current = record.Split(", ");
-                
-                result.AppendLine($"{current[0]} \t{current[2]}\t\t {current[3]}\t\t {current[4]}");
-
-User current = new User(current[0], current[1])
-                //result.AppendLine(record);
-                //result.AppendLine($"{userName} \t{this.wins}\t\t {this.losses}\t\t {this.averageTurns}");
+            foreach (User record in records)
+            {                   
+                result.AppendLine($"{record.userName} \t{record.wins}\t\t {record.losses}\t\t {record.averageTurns}");
             }
             return result.ToString();
-
-            // string result = "this string";
-            // result = result + "some other string being concatenated";
-            // return result;
-
-            //return "this string";
         }
 
-        public void SaveRecord(string path)
+        public void SerializeAsXml(List<User> records)
         {
-            StringBuilder sb = new StringBuilder();
-            sb.AppendLine($"{this.userName}, {this.password}, {this.wins}, {this.losses}, {this.averageTurns}, {this.turns[1]}, {this.turns[2]}, {this.turns[3]}, {this.turns[4]}, {this.turns[5]}, {this.turns[6]}");
-            File.AppendAllText(path, sb.ToString());
-        }     
+
+            var newStringWriter = new StringWriter();
+            Serializer.Serialize(newStringWriter, records);
+
+            File.WriteAllText("./xml", newStringWriter.ToString());
+           
+            newStringWriter.Close();
+        }
+
+        public List<User> ReadFromXml()
+        {
+            StreamReader reader = new StreamReader("./xml");
+            var records = (List<User>?)Serializer.Deserialize(reader);
+            reader.Close();
+            return records;
+        }
     }
 
 }

@@ -25,6 +25,8 @@
 
             User player = new User(userName, password);  
 
+            List<User> records = player.ReadFromXml();
+
             bool loop = true;
 
             do //game loop
@@ -97,8 +99,14 @@ Console.WriteLine(secret);
 
 // end loop here______________________________________
     // display player history
-            player.SaveRecord(playerHistory);
-            Console.WriteLine(player.DisplayRecord(playerHistory));
+
+// replace adding the player to the records list with checking if the player is already on the list.
+// we should be able to use some method call to accomplish this. 
+records.Add(player);
+
+
+            player.SerializeAsXml(records);
+            Console.WriteLine(player.DisplayRecord(playerHistory, records));
 
         }
 
