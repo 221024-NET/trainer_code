@@ -189,13 +189,13 @@ CREATE TABLE Pokemon.Trainer
 	-- UNIQUE can be used to enforce that every entry in that field is unique
 	-- the PRIMARY KEY constraint includes both 'NOT NULL' and 'UNIQUE' constraints
 	-- IDENTITY is the SQL Server or T-SQL auto increment functionality
-	Name VARCHAR(255) NOT NULL CHECK(LEN(Name)>=5),
+	Name VARCHAR(255) NOT NULL, -- CHECK(LEN(Name)>=5),
 	-- CHECK (condition) ensures that the entry meets the condition, otherwise the entry is refused
 	Age INT NOT NULL,
 	DOB DATE NOT NULL DEFAULT GETDATE(),
 	Badges INT NOT NULL DEFAULT 0
 );
--- DROP TABLE Poken.Trainer;
+-- DROP TABLE Pokemon.Trainer;
 GO
 
 CREATE TABLE Pokemon.Pokemons
@@ -267,9 +267,21 @@ VALUES
 	(7, 'Squirtle', (SELECT TypeId FROM Pokemon.Types WHERE Type = 'Water'), 50, 4, 5);
 GO
 
-
+INSERT INTO Pokemon.Trainer (Name, Age, DOB, Badges)
+VALUES
+	('Ash', 10, '1997/05/22', 4),
+	('Gary', 24, '1984/04/06', 6);
+GO
 
 SELECT Pokemons.DexNumber, Pokemons.Name, Types.Type AS Pokes
 	FROM Pokemon.Pokemons 
 	JOIN Pokemon.Types ON Pokemons.Type = Types.TypeId
 	WHERE Types.Type = 'Grass';
+
+GO
+SELECT * FROM Pokemon.Trainer;
+SELECT * FROM Pokemon.Types;
+SELECT * FROM Pokemon.Pokemons;
+
+
+SELECT Name, DexNumber, Health, Level, Exp, Type, PokemonId FROM Pokemon.Pokemons;
