@@ -10,7 +10,7 @@
         public int Type { get; set; }
         public int Id { get; set; }
         public int DexNum { get; set; }
-                // dexNum
+        // dexNum
 
         // Constructor
         public Pokemon() { }

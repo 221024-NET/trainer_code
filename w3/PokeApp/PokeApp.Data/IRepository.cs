@@ -10,5 +10,6 @@ namespace PokeApp.Data
     public interface IRepository
     {
         public List<Pokemon> GetAllPokemon();
+        public string UpdatePokemonName(string newName, int Id);
     }
 }

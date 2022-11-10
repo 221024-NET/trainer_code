@@ -54,5 +54,46 @@ namespace PokeApp.Data
             return Pokemons;
         }
 
+
+        public string UpdatePokemonName(string newName, int Id)
+        {
+            using SqlConnection connection = new SqlConnection(this.ConnectionString);
+            connection.Open();
+            
+            string cmdText = @"UPDATE Pokemon.Pokemons SET Name = @newName WHERE PokemonId = @Id;";
+
+            using SqlCommand cmd = new SqlCommand(cmdText, connection);
+
+            cmd.Parameters.AddWithValue("@newName", newName);
+            cmd.Parameters.AddWithValue("@Id", Id);
+
+            cmd.ExecuteNonQuery();
+
+            string cmdText2 = @"SELECT Name FROM Pokemon.Pokemons WHERE PokemonId = @Id;";
+
+            using SqlCommand cmd2 = new SqlCommand(cmdText2, connection);
+
+            cmd2.Parameters.AddWithValue("@Id", Id);
+
+            using SqlDataReader reader = cmd2.ExecuteReader();
+
+            string? updatedName = "";
+
+            while (reader.Read())
+            {
+                updatedName = reader.GetString(0);
+            }
+
+            connection.Close();
+
+            if (updatedName != null)
+            {
+                return updatedName;
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }
