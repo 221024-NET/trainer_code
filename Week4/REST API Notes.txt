@@ -1,0 +1,90 @@
+HTTP: HyperText Transfer Protocol.
+Standardized way for computers to communicate with each other.
+Allows fetching of resources (HTML documents).
+HTML can contain: text, sub-documents, layout descriptions, images, videos etc.
+
+Connectionless:
+When a request is sent, the client (usually a browser) opens the connection, once a response is received, the client closes the connection.
+
+The client and the server only maintain a connection during the request and response.
+Future requests are made on a new connection.
+
+Stateless: There is no dependency between successive requests.
+Not Sessionless: Utilizes headers and cookies to create sessions to allow HTTP requests to share the same context.
+Media Independent: any type of data can be sent over HTTP as long as both the client and the server know how to handle the format: text, images, videos, XML, JSON, (serialized) objects.
+
+HTTP Request and Response:
+HTTP Request:
+	- is sent from the client to the server to initiate some operation.
+	- Requires a URL (Uniform Resource Locator) for e.g., www.linkedin.com
+	- Have other elements as well:
+	
+Method: Defines what operation is to be formed.
+	GET, POST, PUT, DELETE
+Path: the URL (location or address) of the resource being requested.
+	URL gets converted into an IP address 123.45.67.89
+HTTP Headers:
+	- optional information.
+	- Content-Type (json, xml, etc.)
+Body:
+	- optional information.
+	- usually used with POST and PUT methods.
+
+HTTP Request Methods:
+GET: Only retrieves data for the requested resource.
+	- GET: www.mysite.com/customers
+	- GET: www.mysite.com/customers/101
+	Nothing in the body.
+POST: Send data to the server to create new resource.
+	- POST: www.mysite.com/customers
+		BODY: firstname, lastname, address, city, state, zip, phone, email...
+PUT: Modify existing data for a specific resource.
+	- PUT: www.mysite.com/customers/246
+		BODY: firstname, lastname, address, city, state, zip, phone, email...
+DELETE: Delete an existing resource.
+	- DELETE: www.mysite.com/customers/246
+	Nothing in the body.
+
+HTTP Responses:
+Informs the client about the outcome of the requested operation.
+Responses also have elements:
+Header: Date, Content-Type.
+Body: optional, contains requested data.
+Status Codes:
+	- 5 categories of status codes:
+		- 100 Information.
+		- 200 Success.
+			- 200 OK
+			- 201 Created.
+		- 300 Redirection.
+		- 400 Client Error.
+			- 401 Unauthorized.
+			- 404 Not found.
+		- 500 Server Error.
+			- 500 Internal server error.
+			
+URL:
+http://www.example.com/customers?id=764
+Here:
+- http:// - protocol
+	- https://www.example.com/customers?id=764
+	- HTTPS: HTTP secured. Everything in the request is encrypted.
+- www.example.com - Domain name or IP address
+- customers - path
+- ?id=764 - Query String
+	- http://www.example.com/customers?id=764&firstname=john&lastname=smith
+
+OR
+URL:
+	- www.mysite.com/customers/246
+
+API:
+====
+Application Programming Interface.
+Client-server applications
+Request a web page:
+	- https://www.example.com/customers/details.html?id=246
+
+Web APIs: are web based applications without a UI.
+	- You build the UI and make calls to the API to fetch / add / updated / delete data.
+	
