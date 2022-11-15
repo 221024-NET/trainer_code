@@ -14,11 +14,12 @@ namespace Wordle
         public int losses { get; set; }
         public double averageTurns {get; set; }
         public int[] turns { get; set; } // turns to win by index
+        public bool Exists {get;set;} //exists in file?
 
         public XmlSerializer Serializer { get; } = new XmlSerializer(typeof(List<User>));
 
         // Costructors
-        public User (){}
+        public User (){userName="";password="";Exists=false;}
 
         public User(string userName, string password)
         {
@@ -28,6 +29,7 @@ namespace Wordle
             this.losses = 0;
             this.averageTurns = 0;
             this.turns = new int[]{0,0,0,0,0,0,0};
+            Exists=true;
         }
 
         public User (string userName, string password, int wins, int losses, double averageTurns, int[] turns) 
@@ -96,6 +98,12 @@ namespace Wordle
             var records = (List<User>?)Serializer.Deserialize(reader);
             reader.Close();
             return records;
+        }
+
+        public override bool Equals(object? obj)
+        {
+            User other = (User)obj;
+            return this.userName==other.userName && this.password==other.password;
         }
     }
 

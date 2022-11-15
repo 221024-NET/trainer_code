@@ -10,7 +10,7 @@
 
             var rand = new Random();
            
-            bool solved=false;
+            bool solved=false, oldplayer=false;
             int turns=0;
             string guess;
 
@@ -26,6 +26,11 @@
             User player = new User(userName, password);  
 
             List<User> records = player.ReadFromXml();
+            if (records.Contains(player)) {
+                player = records.Find(x => player.Equals(x));
+                oldplayer=true;
+                Console.WriteLine("Welcome Back, {0}",userName);
+            }
 
             bool loop = true;
 
@@ -97,13 +102,13 @@ Console.WriteLine(secret);
 
                 } while (loop);
 
-// end loop here______________________________________
-    // display player history
+            // end loop here______________________________________
+                // display player history
 
-// replace adding the player to the records list with checking if the player is already on the list.
-// we should be able to use some method call to accomplish this. 
-records.Add(player);
-
+            // replace adding the player to the records list with checking if the player is already on the list.
+            // we should be able to use some method call to accomplish this. 
+            //records.Add(player);
+            if (!oldplayer) records.Add(player);
 
             player.SerializeAsXml(records);
             Console.WriteLine(player.DisplayRecord(playerHistory, records));
