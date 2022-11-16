@@ -26,7 +26,7 @@ namespace MinimalAPI_ADO_Client
             try
             {
                 // Fetch all existing category records.
-                var categories = await GetAllCategories();
+                var categories = await GetAllCategoriesAsync();
                 foreach(var cate in categories)
                 {
                     ShowCategory(cate);
@@ -85,7 +85,7 @@ namespace MinimalAPI_ADO_Client
                 $"Description: {category.Description}");
         }
 
-        static async Task<List<Category>> GetAllCategories()
+        static async Task<List<Category>> GetAllCategoriesAsync()
         {
             List<Category> categories = new List<Category>();
             var path = "categories";
