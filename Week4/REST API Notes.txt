@@ -88,3 +88,136 @@ Request a web page:
 Web APIs: are web based applications without a UI.
 	- You build the UI and make calls to the API to fetch / add / updated / delete data.
 	
+	
+17-Nov-2022:
+============
+REST: REpresentational State Transfer
+
+Web API: assumed that it is a RESTful API REST API.
+
+Six guiding Principles:
+=======================
+1. Uniform Interface:
+i) easy to identify resources.
+http://localhost:8765/categories
+http://localhost:8765/categories/101
+http://localhost:8765/users
+http://localhost:8765/users/207
+http://localhost:8765/products
+http://localhost:8765/products/607
+
+ii) manipulation of resources through representations.
+GET http://localhost:8765/categories
+GET http://localhost:8765/categories/101
+POST http://localhost:8765/categories
+PUT http://localhost:8765/categories/101
+DELETE http://localhost:8765/categories/101
+
+iii) Self-descriptive messages.
+
+iv) Hypermedia as the engine of application state.
+The client app only needs the initial uri of the api application.
+The API app should dynamically drive all other resources with the use of hyperlinks.
+
+2. Client-Server:
+Enforces "separation of concerns" (SoC).
+Each layer / module / project / package will only do what it is supposed to do and nothing else.
+Client will only perform "client" operations without worrying about where the data is stored and how to access it.
+Server will perform "backend activities" like accessing the DB, performing complex logic, processing the data etc. and not worry about how to "render" the data.
+
+3. Stateless:
+Each request from the client to the server must contain all information that is required by the server to complete the request.
+
+4. Cacheable:
+What is Caching?
+
+5. Layered System:
+Architecture of the API is made up of hierarchical layers.
+
+CORRECT: API calls the Repository which connects to the DB.
+WRONG: API has the code to connect to the DB.
+
+6. Code on demand (optional).
+
+What is a Resource?
+-------------------
+Any information that we can name can be a resource.
+For e.g., customer, employee, product, image, video, collection of products etc.
+The state of the resource at any given particular time is known as the "resource representation".
+The resource representation can be:
+- the data.
+- any metadata describing the data.
+- any hypermedia links that can help clients (client apps) transition to the next state.
+
+A REST API consits of an assembly of interlinked resources.
+
+POST http://localhost:6643/categories
+	returns location: http://localhost:6643/categories/453
+	
+GET http://localhost:6643/categories/453
+{
+	"id": 453,
+	"name": "Electronics",
+	"descriptipon": "Electronic items",
+	"image": "http://localhost:6643/categories/image/453"
+}
+ 
+This will return the imgae of the specific resource (category id 453 in this case).
+GET http://localhost:6643/categories/image/453
+
+This set of interlinked resources is known as REST API's "resource model".
+
+Resources can be accessed using "resource methods", which are GET POST PUT and DELETE.
+GET http://localhost:8765/categories
+GET http://localhost:8765/categories/101
+POST http://localhost:8765/categories
+PUT http://localhost:8765/categories/101
+DELETE http://localhost:8765/categories/101
+
+REST and HTTP are not the same.
+- REST works on HTTP.
+
+REST - HATEOAS
+Hypermedia as the Engine of Application State.
+
+GET http://localhost:4321/departments/10
+{
+	"departmentId": 10,
+	"departmentName": "Admin",
+	"location": "Dallas",
+	"managerId": 110,
+	"links":
+	[
+		{
+			"href": "departments/employees/10",
+			"relation": "employees",
+			"type": "GET"
+		}
+	]
+}
+
+GET http://localhost:4321/departments/employees/10
+[
+	{
+		"employeeId": 123,
+		"name": "John",
+		"link": "employees/123"
+	},
+	{
+		"employeeId": 456,
+		"name": "Mary",
+		"link": "employees/456"
+	}
+]
+
+GET http://localhost:4321/employees/123
+{
+	"employeeId": 456,
+	"name": "Mary",
+	"address": "...",
+	"city": "....",
+	:
+	"photo": "employees/image/456"
+}
+
+Hypermedia any content that has links to other forms of media such as image, video, text, any resource.
