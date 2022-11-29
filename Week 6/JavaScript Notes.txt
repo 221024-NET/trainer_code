@@ -618,3 +618,351 @@ Object Method:
 	obj.display();
 	display();		// Error.
 </script>
+
+29-Nov-2012:
+============
+let vs var
+let age = 10;
+var name = 'John';
+
+let															var
+-------------------------------------------------------------------------------------------------------
+list is block-scoped.										var is function scoped.
+let does not allow redeclaration of variables.				var allows to redeclare variables.
+Hoisting does not occur in let.								Hoisting occurs in var.
+
+1. var is function scoped and let is block-scoped:
+-----------------------------------------------
+A variable declared using var inside a function can be used anywhere within the function.
+// var is function scoped.
+function greet() {
+	var msg = 'Hello';
+	console.log(msg);
+}
+greet();
+//console.log(msg);		// Error.
+
+// let is block-scoped.
+function greeting() {
+	let newMsg = 'Hello there!';
+	
+	if(newMsg == 'Hello there!') {
+		let text = 'This is JavaScript.';
+		console.log(newMsg + ' ' + text);
+	}
+
+	console.log(newMsg + ' ' + text);	// Error!
+}
+greeting();
+console.log(newMsg);	// Error!
+console.log(text);		// Error!
+
+2. let does not allow redeclaration of variables. var allows to redeclare variables:
+------------------------------------------------------------------------------------
+var a = 10;
+var a = 20;		// Works!
+
+let b = 100;
+let b = 20;		// Error!
+
+var a = 5;
+console.log(a);		// 5.
+{
+	var a = 3;
+	console.log(a);	// 3.
+}
+console.log(a);		// 3.
+
+var a = 5;
+console.log(a);		// 5.
+{
+	let a = 3;
+	console.log(a);	// 3.
+}
+console.log(a);		// 5.
+
+// using let.
+let x = 51;
+console.log(x);		// 51.
+{
+	let x = 31;
+	console.log(x);	// 31.
+}
+console.log(x);		// 51.
+
+3. Hoisting does not occur in let. Hoisting occurs in var:
+----------------------------------------------------------
+with let, you cannot use a variable before it is declared. No hoisting!
+with var, you can use the variable before it is declared. Allows hoisting.
+
+let x = 51;
+console.log(x);		// 51.
+{
+ x = 41;			// Error! Cannot access 'x' before initialization
+ let x = 31;
+ console.log(x);
+}
+console.log(x);
+
+console.log(x1);
+var x1 = 51;
+
+Always prefer to use let and not var!!!
+
+Classes in JS:
+==============
+Syntax:
+
+class ClassName {
+	constructor() { ... }
+	method1() { .... }
+	method2() { .... }
+}
+
+For e.g.;
+// Declare a class with a ctor and a method.
+class User {
+	constructor(nm) {
+		this.name = nm;
+	}
+	
+	sayHi() {
+		alert(this.name);
+	}
+}
+
+// Usage of the class.
+let user1 = new User('John');
+user1.sayHi();
+let user2 = new User('Mary');
+user2.sayHi();
+user1.sayHi();
+alert(typeof User);		// function.
+
+A class in JS is actually (internally) a function. It's a special kind of function.
+
+// Declare a class with a ctor and a method.
+class User {
+	constructor(nm) {
+		this.name = nm;
+		this.city = 'Dallas';
+	}
+	
+	sayHi() {
+		alert(this.name + ' ' + this.city);
+	}
+}
+
+User.prototype.sayHello = function() {
+	alert(`Hello there ${this.name}`); 
+}
+
+// Usage of the class.
+let user1 = new User('John');
+user1.sayHi();
+let user2 = new User('Mary');
+user2.sayHi();
+// user1.sayHi();
+// alert(typeof User);		// function.
+
+// alert(User.prototype.sayHi);				// code of sayHi().
+// alert(User.prototype.constructor);			// code of the ctor.
+// alert(User === User.prototype.constructor);	// true.
+
+user1.sayHello();
+
+You can define getters and setters for class properties:
+// Getters and Setters.
+class User {
+	constructor(nm) {
+		this.name = nm;
+		this.lastname = 'Smith';
+	}
+	
+	// getter.
+	get name() {
+		return this._name;
+	}
+	
+	// setter.
+	set name(value) {
+		if(value.length < 4) {
+			alert(`"${value}" Name is too short. Must be atlest 4 characters.`);
+			return;
+		}
+		this._name = value;
+	}
+	
+	// Readonly property.
+	get fullname() {
+		return `${this.lastname}, ${this._name}`;
+	}
+}
+
+// let user1 = new User('John');
+// alert(user1.name);
+// user1.name = 'Johnathan'
+// alert(user1.name);
+let user1 = new User('John');
+alert(user1.name);
+let user2 = new User('Joe');	// Error.
+alert(user2.name);			// undefined.
+user1.name = 'May';			// Error.
+alert(user1.name);			// John.
+
+alert(user1.fullname);		// Smith, John.
+user1.fullname = 'Joe Pricey';
+alert(user1.fullname);		// Smith, John.
+
+Class fields:
+-------------
+Class fields are set on individual objects and not on ClassName.prototype.
+You cannot access them via the prototype object of the class.
+Access them directly from the class instance (object).
+
+// Class fields:
+class User {
+	name = 'John';	// class field. or property.
+	
+	constructor(ct) {
+		this.city = ct;
+	}
+	
+	sayHi() {
+		alert(`Hello ${this.name}`);
+	}
+}
+
+let user1 = new User();
+user1.sayHi();
+alert(user1.name);				// John.
+alert(User.prototype.name);		// undefined.
+alert(User.prototype.city);		// undefined.
+alert(User.prototype.sayHi);
+
+Inheritance:
+============
+Inheritance is achived using the "extends" keyword.
+
+class Animal {
+	constructor(nm) {
+		this.name = nm;
+		this.speed = 0;
+	}
+	
+	run(speed) {
+		this.speed = speed;
+		alert(`${this.name} runs at a speed of ${this.speed}`);
+	}
+	
+	stop() {
+		this.speed = 0;
+		alert(`${this.name} stopped running.`);
+	}
+}
+
+let dog = new Animal("Max");
+dog.run(10);
+dog.stop();
+
+class Rabbit extends Animal {
+	hide() {
+		alert(`${this.name} is now hidden!`);
+	}
+}
+
+let rabbit = new Rabbit('White Rabbit');
+rabbit.run(5);
+rabbit.hide();
+rabbit.stop();
+
+dog.hide();		// Error.
+
+Override behavior of the base class:
+------------------------------------
+class Animal {
+	constructor(nm) {
+		this.name = nm;
+		this.speed = 0;
+	}
+	
+	run(speed) {
+		this.speed = speed;
+		alert(`${this.name} runs at a speed of ${this.speed}`);
+	}
+	
+	stop() {
+		this.speed = 0;
+		alert(`${this.name} stopped running.`);
+	}
+}
+
+let dog = new Animal("Max");
+dog.run(10);
+dog.stop();
+
+class Rabbit extends Animal {
+	hide() {
+		alert(`${this.name} is now hidden!`);
+	}
+	
+	stop() {
+		this.speed = this.speed - 1;
+		alert(`${this.name} is slowing down.`);
+	}
+}
+
+let rabbit = new Rabbit('White Rabbit');
+rabbit.run(5);
+rabbit.hide();
+rabbit.stop();
+
+Override the ctor:
+------------------
+// Override the ctor:
+class Animal {
+	constructor(nm) {
+		this.name = nm;
+		this.speed = 0;
+	}
+	
+	run(speed) {
+		this.speed = speed;
+		alert(`${this.name} runs at a speed of ${this.speed}`);
+	}
+	
+	stop() {
+		this.speed = 0;
+		alert(`${this.name} stopped running.`);
+	}
+}
+
+let dog = new Animal("Max");
+dog.run(10);
+dog.stop();
+
+class Rabbit extends Animal {
+	// override the ctor.
+	constructor(nm, earLength) {
+		super(nm);	// mandatory to call ctor of the base class.
+		// These 2 are not required as they are done in the ctor of the base class.
+		// this.speed = 0;
+		// this.name = nm;
+		this.earLength = earLength;
+	}
+	
+	hide() {
+		alert(`${this.name} is now hidden! It's ear is ${this.earLength} inches long.`);
+	}
+	
+	stop() {
+		this.speed = this.speed - 1;
+		alert(`${this.name} is slowing down.`);
+	}
+	
+}
+
+let rabbit = new Rabbit('White Rabbit', 7);		// Error.
+rabbit.run(5);
+rabbit.hide();
+rabbit.stop();
