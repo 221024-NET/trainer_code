@@ -1,0 +1,17 @@
+<html>
+	<head>
+	</head>
+	
+	<body>
+		<p>Using Maps (key-value) pairs...</p>
+		<p id="demo"></p>
+		<script>
+			const fruits = new Map([
+				["Apples", 300],
+				["Oranges", 250],
+				["Bananas", 275]
+			]);
+			document.getElementById("demo").innerHTML = fruits.get("Bananas");
+		</script>
+	</body>
+</html>

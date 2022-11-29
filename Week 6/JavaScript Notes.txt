@@ -966,3 +966,251 @@ let rabbit = new Rabbit('White Rabbit', 7);		// Error.
 rabbit.run(5);
 rabbit.hide();
 rabbit.stop();
+
+ECMAScript 6 (ES6):
+===================
+Arrow Functions:
+----------------
+a.k.a. Lambda or Lambda Function or Lambda Expressions or Function Expressions.
+
+These are short syntax for writing function expressions.
+Usually used to write a single expression for a function.
+You don't need the function keyword, the return keyword and the curly braces.
+
+This function:
+function add(x ,y) {
+	return x * y;
+}
+add(10,20);
+
+In Arrow Function format:
+const x = (x,y) => x * y;
+x(10,20)
+
+The return and curly braces can be omitted only if there is a single expression in the arrow function.
+If there are more expressions / statements in the arrow function, you must use curly braces and have a return statement.
+
+const x = (x,y) => {
+	// code.
+	// code.
+	return x * y;
+}
+
+The Spread Operator (...):
+==========================
+If you have an array, the spread operator expands the array (iterable) into more elements.
+
+<html>
+	<head>
+	</head>
+	
+	<body>
+		<p>Using the Spread (...) Operator...</p>
+		<p id="demo"></p>
+		<script>
+			const cars1 = ["Saab", "Volvo", "BMW"];
+			const cars2 = ["Toyota", "Honda"];
+
+			const combinedArr = [cars1, ...cars2];
+			alert(combinedArr);
+			
+			const numbers = [23,55,21,87,56];
+			let max = Math.max(...numbers);
+			//alert(max);
+			document.getElementById("demo").innerHTML = max;
+		</script>
+	</body>
+</html>
+
+The for/of Loop:
+================
+Used to iterate over collections (arrays, lists etc.) - iterables.
+Syntax:
+for(let variable_name of array_name) {
+	// code.
+}
+
+<html>
+	<head>
+	</head>
+	
+	<body>
+		<p>Using the for/of loop...</p>
+		<p id="demo"></p>
+		<script>
+			const cars1 = ["Saab", "Volvo", "BMW"];
+			let text = "";
+			for(let aCar of cars1) {
+				text += aCar + "<br />";
+			}
+			document.getElementById("demo").innerHTML = text;
+		</script>
+	</body>
+</html>
+
+You can iterate over a string as well since it is a collection (array) of characters:
+let language = "Javascript";
+text += "Iterating over a String...<br />";
+for(let l of language) {
+	text += l + "<br />";
+}
+document.getElementById("demo").innerHTML = text;
+			
+Maps:
+=====
+Maps are a collection of Key-Value pairs (KV pairs).
+Syntax:
+const map_name = new Map([
+	[key, value],
+	[key, value],
+	[key, value],
+	:
+]);
+
+<script>
+	const fruits = new Map([
+		["Apples", 300],
+		["Oranges", 250],
+		["Bananas", 275]
+	]);
+	document.getElementById("demo").innerHTML = fruits.get("Bananas");	// 275.
+</script>
+
+Sets:
+=====
+Sets are a collection of unique values.
+A value in a set can occur only once!
+No duplicates!
+You can insert values in a set using the add() method.
+The order of the values depends on the insertion order.
+If you try to insert duplicate values, they are ignored.
+Values in a set can be of different types.
+
+<script>
+	const letters = new Set();
+	// Add values to the set.
+	letters.add("T");
+	letters.add("h");
+	letters.add("i");
+	letters.add("s");
+	letters.add("T");
+	letters.add(1024);
+	
+	document.getElementById("demo").innerHTML = letters.size;
+	console.log(letters);
+</script>
+
+Modules:
+========
+A module is just a file.
+Each file (module) should have code for a specific purpose only.
+Include the file (module) on a page on an as-needed basis.
+You can use / reference one .js file in another .js file as a module.
+So, you have to import the .js file.
+
+<<TO BE FIGURED OUT>>
+
+DOM: Document Object Model.
+===========================
+The object "document" is available by default in JS.
+And using this document object, you cdan manipulate the page elements (DOM).
+
+HTML
+	HEAD
+		TITLE
+		SCRIPT
+		STYLE
+		META
+	BODY
+		P
+		DIV
+		SPAN
+		IMG
+		INPUT
+		UL
+			LI
+		OL
+			LI
+		TABLE
+			TR
+			TD
+			TH
+
+12 node types in the DOM:
+1. document: entry point to the DOM.
+2. element nodes: HTML Tags.
+3. text nodes: contain text.
+4. comments.
+5. firstChild
+6. lastChild
+7. previousSibling
+8. nextSibling
+9. parentNode
+10. parentElement
+11. childNodes
+
+<html>
+	<body>
+		<div>
+			<table>
+				<tr>
+					<td>
+						<div>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<p>...</p>
+		<input type="text" />
+	</body>
+</html>
+
+<body> = document.body
+<head> = document.head
+
+Search for elements:
+--------------------
+document.getElementById(id);
+document.querySelectorAll(filter);
+document.getElementsByTagName(elem_name);
+
+JS - Events:
+============
+onclick
+mouseover
+mousedown
+mousemove
+keydown
+keyup
+focus
+submit
+
+3 ways to attach methods to events:
+1. in the HTML Tag definition itself
+	<button onclick="getDivs();">GetDivs</button>
+2. Dynamically for a non-reusable function.
+		<input id="btnDemo" type="button" value="Click Me">
+		
+		<script>
+			btnDemo.onclick = function() {
+				alert('This worked!');
+			}
+		</script>
+3. Dynmically for an already existing function (reuse).
+		<script>
+		<input id="btnDemo2" type="button" value="Click For Event Handler">
+			function handler() {
+				alert('Event handler called.');
+			}
+			
+			btnDemo2.addEventListener("click", handler);
+		</script>
+
+onclick ===> click
+onmouseover ===> mouseover
+
+Event propagation:
+==================
+Bubbling:
+An event defined at a top level tag will be called from inner tags as well.

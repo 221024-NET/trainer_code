@@ -1,0 +1,24 @@
+<html>
+	<head>
+	</head>
+	
+	<body>
+		<p>Using the for/of loop...</p>
+		<p id="demo"></p>
+		<script>
+			const cars1 = ["Saab", "Volvo", "BMW"];
+			let text = "";
+			for(let aCar of cars1) {
+				text += aCar + "<br />";
+			}
+			document.getElementById("demo").innerHTML = text;
+			
+			let language = "Javascript";
+			text += "Iterating over a String...<br />";
+			for(let l of language) {
+				text += l + "<br />";
+			}
+			document.getElementById("demo").innerHTML = text;
+		</script>
+	</body>
+</html>

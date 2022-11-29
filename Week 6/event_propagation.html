@@ -1,0 +1,35 @@
+<html>
+	<head>
+		<style>
+			body * {
+				margin: 10px;
+				border: 1px solid blue;
+			}
+		</style>
+	</head>
+	<body>
+		<form onclick="alert('FORM');">FORM
+			<div onclick="alert('DIV');">DIV
+				<p onclick="alert('P');">P</p>
+			</div>
+		</form>
+
+		<form onclick="alert('FORM');">FORM
+			<div onclick="event.stopPropagation();">DIV
+				<p onclick="alert('P');">P</p>
+			</div>
+		</form>
+		
+		<!-- <div onclick="alert('Handler called');"> -->
+			<!-- <em>If you click on <code>EM</code>, the handler on <code>DIV</code> runs.</em> -->
+			<!-- <p>This is a paragraph</p> -->
+			<!-- <ul> -->
+				<!-- <li>Test</li> -->
+			<!-- </ul> -->
+		<!-- </div> -->
+		
+		<script>
+			
+		</script>
+	</body>
+</html>

@@ -1,0 +1,63 @@
+<html>
+	<body>
+		<div id="elem1">This is a div element.</div>
+		<button onclick="blue();">Blue</button>
+		<button onclick="red();">Red</button>
+		
+		<ul>
+			<li>Apples</li>
+			<li>Oranges</li>
+		</ul>
+
+		<ul>
+			<li>BMW</li>
+			<li>Audi</li>
+			<li>Volvo</li>
+		</ul>
+		<button onclick="query();">Query</button>
+
+		<div id="div2">This is another div element.</div>
+		<button onclick="getDivs();">GetDivs</button>
+		
+		<input id="btnDemo" type="button" value="Click Me">
+		<input id="btnDemo2" type="button" value="Click For Event Handler">
+		
+		<script>
+			btnDemo.onclick = function() {
+				alert('This worked!');
+			}
+			
+			let elem1 = document.getElementById("elem1");
+			elem1.style.background = "yellow";
+			
+			function handler() {
+				alert('Event handler called.');
+			}
+			
+			btnDemo2.addEventListener("click", handler);
+			
+			function blue() {
+				elem1.style.background = "blue";
+				elem1.innerHTML = "Changed bkg to blue";
+			}
+			function red() {
+				elem1.style.background = "red";
+				elem1.innerHTML = "Changed bkg to red";
+			}
+			
+			function query() {
+				let elems = document.querySelectorAll('ul > li:last-child');
+				for(let elem of elems) {
+					console.log(elem.innerHTML);
+				}
+			}
+			
+			function getDivs() {
+				let divs = document.getElementsByTagName("li");
+				for(let aDiv of divs) {
+					console.log(aDiv.innerHTML);
+				}
+			}
+		</script>
+	</body>
+</html>
