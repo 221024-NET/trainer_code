@@ -1,0 +1,21 @@
+<html>
+	<head>
+	</head>
+	
+	<body>
+		<p>Using the Spread (...) Operator...</p>
+		<p id="demo"></p>
+		<script>
+			const cars1 = ["Saab", "Volvo", "BMW"];
+			const cars2 = ["Toyota", "Honda"];
+
+			const combinedArr = [cars1, ...cars2];
+			alert(combinedArr);
+			
+			const numbers = [23,55,21,87,56];
+			let max = Math.max(...numbers);
+			//alert(max);
+			document.getElementById("demo").innerHTML = max;
+		</script>
+	</body>
+</html>
