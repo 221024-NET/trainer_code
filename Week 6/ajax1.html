@@ -1,0 +1,100 @@
+<html>
+	<head>
+		<title>AJAX Demo</title>
+		<script>
+			function getTodos() {
+				var request = new XMLHttpRequest();
+				let url = "https://jsonplaceholder.typicode.com/todos";
+				request.open("GET", url);
+				
+				request.onreadystatechange = function() {
+					if(this.readyState == 4 && this.status == 200) {
+						document.getElementById("result").innerHTML = this.responseText;
+					}
+				};
+				
+				request.send();
+			}
+			
+			function getTodo() {
+				var request = new XMLHttpRequest();
+				let url = "https://jsonplaceholder.typicode.com/todos/198";
+				request.open("GET", url);
+				
+				request.onreadystatechange = function() {
+					if(this.readyState == 4 && this.status == 200) {
+						console.log(this.responseText);
+					}
+				};
+				
+				request.send();
+			}
+			
+			function createTodo() {
+				console.log("BEGIN createTodo()...");
+				var request = new XMLHttpRequest();
+				let url = "https://jsonplaceholder.typicode.com/todos";
+				request.open("POST", url);
+				
+				request.onreadystatechange = function() {
+					if(this.readyState == 4 && this.status == 201) {
+						console.log(`Record created...${this.responseText}`);
+					}
+				};
+				
+				let data = JSON.stringify({
+				  "userId": 10,
+				  "id": 0,
+				  "title": "this is created by me.",
+				  "completed": true
+				});
+				console.log("calling POST...");
+				request.send(data);
+				console.log("END createTodo()...");
+			}
+
+			function createTodoForm() {
+				console.log("BEGIN createTodo()...");
+				var request = new XMLHttpRequest();
+				let url = "https://jsonplaceholder.typicode.com/todos";
+				request.open("POST", url);
+				
+				request.onreadystatechange = function() {
+					if(this.readyState == 4 && this.status == 201) {
+						console.log(`Record created...${this.responseText}`);
+					}
+				};
+				
+				let form = document.getElementById("todoForm");
+				let todoData = new FormData(form);
+				console.log(todoData);
+				
+				console.log("calling POST...");
+				request.send(todoData);
+				console.log("END createTodo()...");
+			}
+
+		</script>
+	</head>
+	<body>
+		<h1>AJAX Demo</h1>
+		<div id="result">Getting some sample ToDo list data...
+			<p>Content of this DIV will be replace with response from the server...</p>
+		</div>
+		<button type="button" onclick="getTodos();">Get Todo Items</button>
+		<button type="button" onclick="getTodo();">Get Single Todo Item</button>
+		<button type="button" onclick="createTodo();">Create A Todo Item</button>
+		<form id="todoForm">
+			<label>UserId:</label>
+			<input type="text" name="userId">
+			<br/>
+			<label>Title:</label>
+			<input type="text" name="title">
+			<br/>
+			<label>Completed:</label>
+			<input type="text" name="completed">
+			<br/>
+			<button type="button" onclick="createTodoForm();">Create</button>
+		</form>
+	</body>
+</html>
