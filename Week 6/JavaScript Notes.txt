@@ -1214,3 +1214,156 @@ Event propagation:
 ==================
 Bubbling:
 An event defined at a top level tag will be called from inner tags as well.
+
+30-Nov-2022:
+============
+JS - Storage - Cookies:
+=======================
+Cookies small strings of data that are stored directly in the browser.
+They are part of the HTTP protocol.
+Usually set by a web-server using the Set-Cookie HTTP header. Then, the browser automatically sends this cookie to almost every request to the same domain (server) using the Cookie HTTP header.
+
+Authentication:
+1. Sign-in, once authenticated, the web-server uses the Set-Cookie http header in the response to set a cookie with a unique "session identifier".
+2. Next time a request is sent from the browser to the same domain, the browser sends the cookie in the request over the net/web using the Cookie http header.
+3. So, the server knows who made the request.
+
+JS - Storage - LocalStorage:
+----------------------------
+a.k.a. web storage / sessionStorage.
+Data is stored in key-value pairs in the browser.
+This storage survives across pages on a site. If you refresh a page, data in the local storage still remains.
+Even if you do a browser restart, data in the local storage survives.
+Unlike cookies, web storage is not sent to the server with every request.
+Due to this, you can store more data in web storage.
+Most browsers allow ~5MB of data in web storage. There are settings to configure that.
+It is accessible using JS.
+It is bound to the origin (domain / web server / port etc.).
+"keys" and "values" must be string types.
+
+Methods / properties of web storage:
+setItem(key, value):	store the key/value pair.
+getItem(key):			get the value by key.
+removeItem(key):		remove the key/value pair.
+clear():				delete everything.
+key(index):				get the key at the specified index poistion.
+length:					the number if items.
+
+localStorage:
+=============
+Object-like access to storage:
+localStorage.name = "John Smith";
+alert(localStorage.name);
+delete localStorage.name;
+
+for demos, refer to localStorage.html.
+
+sessionStorage is similar to localStorage.
+Difference being, if you open the page on a new tab / window, sessionStorage is lost.
+
+JS - Callbacks and Promises:
+============================
+Related to asynchronous programming. Making async calls from JS.
+There are quite a few built-in functions that work async. setTimeout().
+Async actions are actions that initiate now, but they finish later.
+While they are running, other code can continue.
+
+Callbacks are way of sending a notification back to the caller from the async action that it is done!
+
+Promises:
+---------
+Typically used in JS when making API calls.
+- resolve
+- reject
+
+Syntax:
+let promiseObject = new Promise( function(resolve, reject) {
+	// your code.
+}
+
+For e.g.;
+<script>
+	let promiseObjectResolve = new Promise( function(resolve, reject) {
+		setTimeout(() => resolve("done"), 1000);
+	});
+	
+	let promiseObjectReject = new Promise( function(resolve, reject) {
+		setTimeout(() => reject(new Error("Whoops! Something went wrong!")), 1000);
+	});
+
+	promiseObjectResolve.then(
+		result => alert(result),
+		error => alert(error)
+	);
+
+	promiseObjectReject.then(
+		result => alert(result),
+		error => { 
+			msg.innerHTML = error;
+			msg.style.background = "red";
+		}
+	);
+	
+	// catch.
+	promiseObjectReject.catch(alert);
+
+	// catch and finally.
+	promiseObjectReject
+		.catch(alert)
+		.finally(console.log("This is the finally block..."));
+	
+	// Bad coding!
+	let p3 = new Promise( function(resolve, reject) {
+		resolve("Done with the API...");
+		reject(new Error("Whoops! Something went wrong!"));		// ignored.
+	});
+
+</script>
+
+
+AJAX:
+=====
+Asynchronous JavaScript And XML.
+Used to make async calls to APIs using the XMLHttpRequest object.
+
+Step 1: Create an object of XMLHttpRequest:
+var request = new XMLHttpRequest();
+
+2: Configure the call with the HTTP Method type and url of the API:
+request.open("GET", "http://wwww.myapi.com/customers");
+
+3: Configure the callback:
+request.onreadystatechange = function() {
+
+4: Check if request is completed and was successful.
+	if(this.readyState == 4 && this.status == 200) {
+
+5: Extract the returned data from the response.
+		document.getElementById("result").innerHTML = this.responseText;
+	}
+}
+
+6: Initiate the request.
+request.send();
+
+Demos:
+ajax1.html
+ajax_fetch.html
+
+this.readyState values:
+-----------------------
+0 - unsent - XMLHttpRequest has been created, but the open() method has not been called yet.
+1 - opened - the open() method has been called.
+2 - headers_received - send() method has been called and the server received the request.
+3 - loading - the server is processing the request.
+4 - done - the request has been  processed and the response is ready.
+
+HTTP - CORS:
+============
+Cross-Origin Resource Sharing.
+Enable CORS between the API and the client app.
+Can configure not only the domains (urls), but also what methods are allowed or denied (GET, POST, PUT, DELETE).
+By default, CORS is disabled for all APIs.
+
+Server uses the "Access-Control-Allow-Origin" property in the header to allow or deny CORS.
+A value * means any URL / domain can make calls to the server (api).

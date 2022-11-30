@@ -1,0 +1,45 @@
+<html>
+	<body>
+		<div id="elem1">Promises Demo...</div>
+		<p>Using resolve and reject...</p>
+		<p id="msg">MESSAGE WILL COME HERE...</p>
+		
+		<script>
+			let promiseObjectResolve = new Promise( function(resolve, reject) {
+				setTimeout(() => resolve("done"), 1000);
+			});
+			
+			let promiseObjectReject = new Promise( function(resolve, reject) {
+				setTimeout(() => reject(new Error("Whoops! Something went wrong!")), 1000);
+			});
+
+			promiseObjectResolve.then(
+				result => alert(result),
+				error => alert(error)
+			);
+
+			promiseObjectReject.then(
+				result => alert(result),
+				error => { 
+					msg.innerHTML = error;
+					msg.style.background = "red";
+				}
+			);
+			
+			// catch.
+			promiseObjectReject.catch(alert);
+
+			// catch and finally.
+			promiseObjectReject
+				.catch(alert)
+				.finally(console.log("This is the finally block..."));
+			
+			// Bad coding!
+			let p3 = new Promise( function(resolve, reject) {
+				resolve("Done with the API...");
+				reject(new Error("Whoops! Something went wrong!"));		// ignored.
+			});
+
+		</script>
+	</body>
+</html>

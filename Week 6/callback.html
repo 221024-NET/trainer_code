@@ -1,0 +1,37 @@
+<html>
+	<body>
+		<div id="elem1">Callback Demo...</div>
+		<p>Loading a script dynamically...</p>
+		<div id="div2">This div will be updated...</div>
+		<button onclick="foo();">Load Script 1</button>
+		<script>
+			function loadScript(src, callback) {
+				let script = document.createElement('script');
+				script.src = src;
+				
+				// Callback.
+				script.onload = () => callback(null, script);
+				script.onerror = () => callback(new Error(`Script load error ${src}.`));
+				
+				document.head.append(script);
+			}
+			
+			function foo() {
+				loadScript('./script1.js', function() {
+					newFoo();
+				});
+
+				loadScript('./script22.js', function(error, script) {
+					if(error) {
+						console.log('Error while loading script2.js.');
+						console.log(`${error}`);
+					} else {
+						fooBar();
+					}
+				});
+				
+				div2.innerHTML = "Please wait...loading script...";
+			}
+		</script>
+	</body>
+</html>
