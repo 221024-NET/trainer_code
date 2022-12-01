@@ -1,0 +1,200 @@
+01-Dec-2022:
+============
+Service Oriented Architecture (SOA):
+------------------------------------
+Providing functionality as a service to applications.
+
+Web Services: Based on certain W3C standards.
+Limitations: compatibility with other platforms. If a web service was created in .NET, it was not 100% compatible with Java. and vice versa.
+
+SOA Principles:
+1. Stardardized service contract and description.
+2. Loose coupling.
+3. Service Abstraction: hide the logic from the outside world.
+4. Service reusability.
+5. Service autonomy: The service should have control over the logic that is encapsulated (hidden) within the service.
+6. Service statelessness: ideally, services should be stateless. They should not withold any information from one state (request) to the other. Every request must sent relevant required data to the service for it to perform it's action properly.
+7. Service discoverability: Clients (apps) should be able to discover the service.
+	www.myapi.com/swagger/ui/index.html
+8. Service composability: break big problems into smaller ones. Instead of providing a single service (API) with many methods, create separate services for the components.
+9. Service interoperability: Services should be compatible and accessible from diverse subscribers (clients). Based on standards: HTTP-based, XML/JSON.
+
+SOA Terminologies:
+1. Service consumer: the client that consumes the service (api).
+2. Service registry: Repository where services are registered and become discoverable.
+3. Service provider: the creator (generator) of the service.
+
+SOA Advantages:
+- Service resuability.
+- platform independent.
+- easy maintenance.
+- availability.
+- Parallel development.
+- Scalability.
+
+SOA Disadvantages:
+- SOA depends on standards.
+- SOA is not meant for applications that have a very high level of data transfer.
+- SOA is about knowing the business process properly.
+	
+ASP.NET Core:
+=============
+- ASP: Active Server Pages by Microsoft.
+	- .asp files.
+	- all your code for a page in a single .asp file.
+		- html, server business logic, db connectivity etc.
+- .NET and ASP.NET
+	- bifurcated the UI (HTML) and code-behind (C# or VB.NET).
+	- a page would be a combination of:
+		- .aspx file (HTML).
+		- a .aspx.cs (or .aspx.vb) file (code-behind, logic).
+			- login.aspx and login.aspx.cs
+		- class libraries - for the BL and DAL and use these from the .aspx.cs file.
+- ASP.NET Web Services:
+	- web pages but without UI.
+	- .ascx and .ascx.cs files
+		- customer.ascx and customer.ascx.cs
+			- web methods for the "customer" component.
+				- Login()
+				- Register()
+				- GetCustomerDetails()
+- .NET Core and ASP.NET Core
+	- .NET when it started, the aim was to have it work across platforms, not just on Windows.
+	- But there were lots of issues with that.
+	- Lot of code in the .NET Framework that was dependent on the Windows O/S and architecture.
+	- Over a period of time, .NET became platform independent like Java and was called ".NET Core".
+	
+	
+Create a web app:
+=================
+VS: New -> Project -> ASP.NET Core Web App
+VSC:
+Command line (VSC Terminal Window):
+cd \dotnet_projects
+dotnet new webapp -o aspnetcoreapp_vsc
+dotnet dev-certs https --trust
+
+Razor Syntax:
+Server side code.
+Starts with the @ symbol.
+
+ViewData["title"] = "some title";
+ViewData is a built-in "bag" available in .NET to share data between the server code (.cs) and the HTML page.
+Used to store any kind of data to share between UI and code-behind.
+
+MVC: Model-View-Controller: Design Pattern:
+===========================================
+All controllers inherit from the built-n base class "Controller".
+URL of a MVC-based application will be as:
+http://server.com/controller/action
+http://server.com/home/index
+http://server.com/home/privacy
+
+In the Action method of the Controller, there is return View();
+What this does is, renders the view for that specific action.
+View name must match the action name.
+So, if action name is "Index",  view is Index.cshtml.
+So, if action name is "About",  view is About.cshtml.
+So, if action name is "Order",  view is Order.cshtml.
+
+The views for a controller have to be in a specific folder of that controller within the Views folder.
+So, for a controller named HomeController and actions Index, About, there will be folders+files as follows:
+Views
+	Home
+		Index.cshtml
+		About.cshtml
+So, for a controller named ProductController and actions Index, DisplayDetails, there will be folders+files as follows:
+Views
+	Product
+		Index.cshtml
+		DisplayDetails.cshtml
+ALL controllers must be created in the Controllers folder only.
+
+Components of ASP.NET (Core):
+Program.cs
+Dependency Injection (DI).
+Middleware.
+Configuration (appsettings.json).
+Environments.
+	DEV, TEST, PROD
+Logging
+Routing
+
+ASP.NET Core Web API:
+Controller inherits from the built-in class "ControllerBase".
+
+EntityFramework (EF) Core:
+==========================
+EF is an ORM.
+ORM = Object Relation Mapping.
+
+Hibernate: Java-based ORM used in Java apps to handle database operations in a Java app.
+	- Create a model (entity class).
+	- Map it to a database. 
+	- Configure the connection.
+	- That's it!
+	- No need a single QUERY (SELECT, INSERT, UPDATE, DELETE).
+	- make calls on the ORM object.
+		- customers.Create(), customers.Find(), customers.Save()
+	- You don't write the Queries.
+	- The ORM will do it for you internally.
+	- Even for complex queries with joins between tables, the ORM generates the query internally.
+	
+NHibernate: .NET-based applications.
+
+Microsoft create it's ORM called EntityFramework.
+Which is now EntityFramework Core.
+
+Create a web api using Visual Studio Code:
+1. Create the API project:
+dotnet new webapi -o TodoApi
+
+2. Add EntityFramework NuGet package to the project.
+cd TodoApi
+In VSC:
+dotnet add package Microsoft.EntityFrameworkCore.InMemory
+
+In VS Package Manager Console:
+Install-Package Microsoft.EntityFrameworkCore.InMemory	
+
+3. Add a database context.
+- The class where EF commmunicates with the DB.
+- We define all the entities mapped to the DB tables.
+
+4. Register the DB Context class in Program.cs
+5. Scaffold a controller (create a controller based on the model).
+
+dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
+dotnet add package Microsoft.EntityFrameworkCore.Design
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+dotnet tool install -g dotnet-aspnet-codegenerator
+dotnet aspnet-codegenerator controller -name TodoItemsController -async -api -m TodoItem -dc TodoContext -outDir Controllers
+
+Create Web Api with EF Core Migrations (Code First approach):
+=============================================================
+VS:
+Install-Package Microsoft.VisualStudio.Web.CodeGeneration.Design
+Install-Package Microsoft.EntityFrameworkCore.Design
+Install-Package Microsoft.EntityFrameworkCore.SqlServer
+dotnet tool install -g dotnet-aspnet-codegenerator
+Install-Package Microsoft.EntityFrameworkCore.Tools
+
+Create model class(es).
+Create DB Context class.
+	- Define Entities in the context class.
+Run these commands:
+	Add-Migration <name>
+	Update-Database			// Make changes to the DB.
+
+If you make changes to the model (create a new model, update an existing model), run migrations again:
+	Add-Migration <new_name>
+	Update-Database
+
+EF with DB First Approach:
+==========================
+Configure the connection string in appsettings.json
+Create the model classes - exactly as per the existing DB tables.
+Create the DB Context class
+	- add the entities to the db context class
+Register the DB Context class as a service (DI) in Program.cs
+Create api controller & repository.

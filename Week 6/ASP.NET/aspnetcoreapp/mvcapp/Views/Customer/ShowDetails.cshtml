@@ -1,0 +1,17 @@
+﻿@model mvcapp.Models.Customer;
+
+@{
+    ViewData["Title"] = "Customer Details";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Customer Details</h1>
+    <p>@ViewData["message"]</p>
+    <p>@ViewData["id"]</p>
+    <p>@ViewData["firstname"]</p>
+    <p>@ViewData["lastname"]</p>
+    <h2>Display using model...</h2>
+    <p>Id: @Model.Id</p>
+    <p>Firstname: @Model.Firstname</p>
+    <p>Lastname: @Model.Lastname</p>
+</div>
