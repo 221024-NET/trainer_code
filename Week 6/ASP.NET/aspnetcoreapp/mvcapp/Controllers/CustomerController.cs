@@ -36,5 +36,12 @@ namespace mvcapp.Controllers
             var customers = _customerRepo.Get();
             return View(customers);
         }
+
+        public IActionResult Details(int id)
+        {
+            var customer = _customerRepo.Get(id);
+
+            return View(customer);
+        }
     }
 }
