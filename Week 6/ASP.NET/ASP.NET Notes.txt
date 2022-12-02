@@ -198,3 +198,161 @@ Create the DB Context class
 	- add the entities to the db context class
 Register the DB Context class as a service (DI) in Program.cs
 Create api controller & repository.
+
+02-Dec-2022:
+============
+Generate Controller:
+--------------------
+Controller Action return types - Web App
+Controller Action return types - Web API
+
+Routes:
+-------
+
+Data Annotations:
+-----------------
+//[Table("Emp")]
+public class Employee
+{
+	//[Column("employee_identifier")]
+	//[Key]
+	public long EmployeeId { get; set; }
+
+	//[Column(TypeName = "NVARCHAR(MAX)")]
+	[Required]
+	//[StringLength(50)]
+	public string Firstname { get; set; }
+
+	//[StringLength(50, ErrorMessage = "Lastname must be less than 50 characters")]
+	//[StringLength(50, ErrorMessage = "Lastname must be less than 50 characters", MinimumLength = 5)]
+	public string Lastname { get; set; }
+	public DateTime DateOfBirth { get; set; }
+	//[Phone]
+	public string PhoneNumber { get; set; }
+	//[MaxLength(5)]
+	//[EmailAddress]
+	public string Email { get; set; }
+	public string Gender { get; set; }
+
+	//[Url]
+	public string WebSite{ get; set; }
+
+	//[NotMapped]
+	//public string Dummy { get; set; }
+
+	//[Column(TypeName = "decimal(5,2)")]
+	//public decimal Rating { get; set; }
+
+	//[Range(1,199)]
+	//public decimal Price { get; set; }
+}
+
+ASP.NET Filters
+---------------
+Filters are code that run before or after specific stages in HTTP request-response lifecycle.
+Built-in filters:
+	Authorization Filters:
+		- runs first.
+		- Determine if the user is authorized to make the request.
+	Resource Filters:
+		- runs after authorization.
+		- OnResourceExecuting runs before the request pipline initiates.
+		- OnResourceExecuting runs after the pipeline has completed.
+	Action Filters:
+		- run immediately before and after an action method is called.
+		- Can change the arguments passed to the action.
+		- Can change the result returned from the action.
+	Exception Filters:
+		- take care of unhandled exceptions.
+	Result
+		- Run immediately before and after action results are executed.
+		- Run only when the action executes successfully.
+		- Usually used to format views or data before it is rendered by the view.
+	Caching
+		- for caching of data.
+Custom filters can be created.
+
+
+ASP.NET Caching
+---------------
+var result = null;
+if(anObject == null) 
+{
+	throw exception
+}
+else 
+{
+	result = anObject;
+}
+
+instead:
+var result = anObject ?? throw exception;
+
+DTOs: Data Transfer Objects
+Your entity (model) may have 25 fields (25 columns).
+From the API, you want to only return 10 fields.
+If you return the DbContext model object, you will end up returning all the fields OR manually setting field values to null or zero or dummy data.
+Instead, use DTOs.
+Create a DTO and include those fields that are required to be passed back.
+
+The IMemoryCache object is like a map, having key-value pairs.
+
+SlidingExpiration: Determines how long a cache entry can be inactive before it is remove from the cache. Should be a lower value, like a minute or two minutes.
+At 10:10 Products list is requested.
+SlidingExpiration will be 10:13.
+At 10:11 someone requests the products list.
+SlidingExpiration will be 10:14.
+If no one access products list til l0:15, the list is removed from cache.
+
+AbsoluteExpiration: The problem with SlidingExpiration is it never expires if the object is frequently accessed. What if new products are added, or existing products deleted or modified? Should be a higher value, like 1 hour.
+
+Priority: Normal, Low, High, Never Remove.
+Size: just a number. size of the cached object.
+
+CORS:
+-----
+Cross-Origin Resource Sharing.
+1. In Program.cs, you add the CORS service and define a policy:
+var TodoOrigins = "_todoOrigins";
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: TodoOrigins,
+                        policy =>
+                        {
+                            policy.WithOrigins("http://localhost:4200")
+                                .AllowAnyHeader()
+                                .AllowAnyMethod();
+                        });
+});
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "anotherOrigin",
+                        policy =>
+                        {
+                            policy.WithOrigins("http://localhost:7654")
+                                .AllowAnyHeader()
+                                .WithMethod(<list of methods allowed>);
+                        });
+});
+
+To allow anyone to access the API, use policy.AllowAnyOrigin():
+var TodoOrigins = "_todoOrigins";
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: TodoOrigins,
+                        policy =>
+                        {
+                            policy.AllowAnyOrigin()
+                                .AllowAnyHeader()
+                                .AllowAnyMethod();
+                        });
+});
+
+2. Activate the CORS policy that is defined in step 1 above:
+app.UseCors(TodoOrigins);
+app.Run();
+
+LINQ:
+-----
+

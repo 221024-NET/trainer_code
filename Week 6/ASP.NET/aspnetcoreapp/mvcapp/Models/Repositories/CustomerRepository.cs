@@ -22,6 +22,7 @@
         public Customer Get(int id)
         {
             // SELECT * FROM Customers WHERE Id = id.
+			// LINQ: Languate INtegrated Query.
             var customer = _customers.Where(c => c.Id == id).FirstOrDefault<Customer>();
 
             return customer;
