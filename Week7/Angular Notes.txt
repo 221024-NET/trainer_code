@@ -1,0 +1,186 @@
+05-Dec-2022:
+============
+Angular:
+--------
+
+NodeJS Fundamentals:
+FREE!!!
+Client as well server.
+Is a cross-platform JavaScript runtime environment.
+It also allows to create Web servers that are scalable.
+You can also create console-based and web-based applications using Node.js.
+
+Data Types:
+===========
+- Boolean
+- Undefined
+- Null
+- String
+- Number
+- Object
+- Function (kind of an data type).
+
+Loose typing:
+You don't need to specify the type of data to be stored in a variable.
+Use the "var" keyword in NodeJS to declare any type of variable.
+
+Create file named loose_typing.js:
+var a =35;
+console.log(typeof a);
+
+a = "Hello there";
+console.log(typeof a);
+
+a = undefined;
+console.log(typeof a);
+
+Objects & Functions:
+--------------------
+var company = {
+	Name: "ajay singala",
+	Address: "Boston",
+	Contact: "555-123-4567",
+	Email: "ajay@singala.com"
+};
+
+console.log("Information of the company varialbe is :", company);
+console.log("The type of the company varialbe is :", typeof company);
+
+String functions:
+=================
++: concat
+contact()
+charAt()
+join()
+
+NPM: Node Package Manager
+=========================
+Used to manage NodeJS modules for your application.
+www.npmjs.com hosts thousands of free packages / modules to download and use.
+When you install node.js, npm comes along with it.
+
+What is a package?
+It contains all the files required for a modules.
+Modules are JS libraries that you can include in your project.
+To download any package, just run the npm install command and specify the package name:
+C:\npm install uppper-case
+Wherever (in whichever folder) you run the npm install command, it will create a folder called "node_modules" and all downloaded packages will be installed in this folder.
+Do not include node_modules in your code repo. Make you specify it in the .gitignore so that it is ignored.
+
+Dependencies are listed in the package.json file.
+The node_modules older is created based on this file.
+Everytime you install a package, it gets listed in this file.
+
+TypeScript (TS):
+===========
+Typed JavaScript.
+It adds types to JS to help you speed up development by catching errors even before you run your JS code.
+It is aopn-source programming language built on top of JS.
+Works on any browser, any OS, any environment that runs JS.
+Developed by Microsoft.
+
+Remember:
+- TS is a pre-compiler.
+- Browser does not recognize TS.
+- Being a pre-compiler, it converts TS code into JS.
+
+TS is just JS.
+Supports many JS libraries.
+TS is portable.
+
+TS Components:
+1. Language.
+2. the TS Compiler.
+3. The TS Language Service: an additional layer around the core compiler works with the editor providing features like statement completion, formatting, colorization.
+
+To use TS, you need NodeJs installed.
+To verify, run:
+node -v
+npm -v
+
+Install TS by running:
+npm install -g typescript
+
+TS compiler as the Transpiler.
+Process of converting TS into JS is knows Transpilation / Transpiling.
+The compiler is tsc.
+tsc -version
+tsc --v
+
+To run TSC in VS Code, you may get an error as follows:
+tsc : File C:\Users\AjayJayantilalSingal\AppData\Roaming\npm\tsc.ps1 cannot be loaded because running scripts is disabled on this system. For more   
+information, see about_Execution_Policies at https:/go.microsoft.com/fwlink/?LinkID=135170.
+To remove this error:
+- Open Powershell as Admin
+- Run the following command:
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned
+- exit powershell
+
+To compile a TS file:
+tsc <filename>.ts
+This will generate a .js file with the same filename.
+To run, execute with Node:
+node <filename>.js
+For e.g.;
+tsc helloworld.ts
+node helloworld.js
+
+TSC by default generates ES3 code.
+So, some features of TS may not compile, like defining "Accessors".
+To targe ES5 code, run:
+tsc <filename.ts> --target ES5
+
+In typical OOP,
+interface IPerson {
+:
+}
+
+class Student : IPerson {
+:
+}
+
+class Professor
+{
+}
+
+
+public string Greeter(IPerson person) {
+
+}
+
+var user = new Student(...);
+Greeter(user);		// WORKS!
+
+var prof = new Professor();
+Greeter(prof);		// ERROR!
+
+But in TS, it will work!! (interfaces\greeter.ts)
+
+Type System of TS:
+- Number
+- string
+- Boolean
+- any
+- Enum
+- void
+
+Use "extends" to inherit from a class.
+class AwesomePerson extends NormalPerson {
+    
+}
+
+To implement an interface on a class, use "implements":
+interface IPerson {
+:
+}
+
+class AwesomePerson extends IPerson {
+:
+}
+
+Static variables in a class.
+Can be accessed directly using the class name and does not require an instance of the class.
+
+Modules: used to share code between files. External modules.
+Namespaces: internal modules.
+
