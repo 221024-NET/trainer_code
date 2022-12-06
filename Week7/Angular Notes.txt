@@ -184,3 +184,183 @@ Can be accessed directly using the class name and does not require an instance o
 Modules: used to share code between files. External modules.
 Namespaces: internal modules.
 
+06-Dec-2022:
+============
+SPA: Single Page Application.
+-----------------------------
+A web site / application that dynamically rewrites the current web page with new data from the web server and refresh only part of the page instead of the default behavior of the browser to load new pages.
+
+Gmail, Google Maps, Netflix, AirBnb, Paypal, Pinterest are examples of SPAs.
+
+In an SPA, there is a single page and only parts of the page are updated dynamically.
+Advantages of SPA:
+1. HTML, CSS, JS files are loaded only once.
+2. No extra queries to the server: Only specific data requested is fetched.
+3. Fast and Responsive front-end building.
+4. Enhanced User Experience.
+
+Angular is a JS-TS-based framework that helps you create SPAs.
+
+Angular History:
+----------------
+AngularJS a.k.a. Angular v1.0 created by Google in around 2010.
+Angular 2.0 Sept-2016.
+Angular 4.0 Mar'17
+Angular 5 Nov'17
+Angular 6 May 2018
+Angular 7 Oct'18
+Angular 14 Jun'22.
+Current version is 15.
+
+Angular is an open source JS framework written in TS.
+Google maintains it.
+It's primary purpose is to create SPAs.
+
+Features of Angular:
+- DOM: manipulate the DOM (html, css etc.).
+- TypeScript: more features than pure JS (OO, type-safe variables etc.).
+- Data Binding: is a process that enables users to manipulate web page elements through a web browser, by updating HTML elements dynmically.
+- Testing: using frameworks like Jasmine and Karma.
+
+Angular Architecture:
+=====================
+Angular is a full-fledged MVC (Model-View-Controller) framework.
+
+Building blocks of an Angular application:
+- Modules: An angular app root module, named AppModule that provides the bootstrapping mechanism to launch the app.
+- Components: Each component in the app defines a class that holds the logic of the app and the data. It also defines a part of the UI.
+- Templates: It is the HTML markup to be rendered. Contains:
+	- Property binding: enables you to interpolate the values that are computed from your app data.
+	- Event binding: Lets your app respond to user input.
+- Metadata: tells Angular how to process a class.
+- Services: these are special classes that are injected into components. Have logic to fetch / manage the data. For e.g.; calling an API.
+- Dependency Injection: Used to inject services or other special components into other components for usage.
+
+Installing Angular (ng):
+========================
+Pre-requisite: Node.js installed
+
+node --version
+node -v
+
+npm install -g @angular/cli
+ng version
+
+Create a new ng app:
+1. Create a new folder for your project (mkdir <foldername>).
+2. Navigate to that folder (cd <foldername>)
+3. ng new hello-world
+4. To run your app:
+	cd hello-world
+	ng serve
+		this will run your app on port 4200 (http://localhost:4200).
+		to run on a different port: ng serve --port 5300 ((http://localhost:5300).
+
+By default, your ng app will have an "app" component, which is made up of 4 files:
+1. app.component.ts			=> component.
+2. app.component.html		=> template.
+3. app.component.css		=> Stylesheet.
+4. app.component.spec.ts	=> Unit Tests.
+
+Any component you create, will have these 4 files.
+A component in Angular is made up of these 4 files.
+
+Application Structure:
+1. ROOT HTML - index.html
+2. Entry point: main.ts
+	Bootstraps the AppModule (app.module.ts)
+3. AppModule: app.module.ts: 
+@NgModule( {
+	declarations: [
+		collection of components defined here.
+	],
+	imports: [
+		collection of modules imported and used in the app.
+	],
+	providers: [
+		collection services used in your app. (will be DI'd - dependency injected).
+	],
+	bootstrap: [AppComponent]
+})
+export class AppModule {}
+
+4. Root Component: app.component.ts: bootstrap component, first component to run.
+5. Additional Components:
+
+ng generate component Person			shortcut: ng g c Person
+Person.component.ts
+	export class CustomerComponent {}
+Person.component.html
+Person.component.css
+Person.component.spec.ts
+
+Component is like Contoller!!
+
+When creating a new component, the related (4) files will be created in the component's folder inside /src/app/ folder.
+So for the above command, it will create a folder /src/app/person, which will have 4 files.
+
+Angular Components are building blocks of the UI of any Angular app.
+They are associated with a template (html and css) and a selector.
+The component class (.ts file) defines the metadata for the component using the @Component decorator.
+
+
+The @Component decorator can have the following metadata:
+- selector		: identifies the template to be rendered
+- template		: the inline-HTML in the .ts file to be rendered for the component.
+- templateUrl	: the url to the .component.html
+- styles		: the inline-styles for the component.
+- styleUrls		: the urls to the component's .css files.
+
+Data Binding:
+=============
+Is used to manipulate the web page elements and update the page dynamically.
+Types of bindings:
+- Interpolation
+- Attribute binding
+- ngModel
+
+Interpolation Binding:
+----------------------
+Define variable in the component.ts file.
+Use it in the component.html file by specifying it between double-curly braces, {{ and }}.
+
+Property Binding:
+-----------------
+It is a one-way binding mechanism that allows you to set the properties of HTML elements.
+Use the square-brackets [] for data binding in the HTML.
+Include the property to be set in [] and then provide the variable.
+Info flows from component to the view.
+	- Define a variable in the component and set it's value.
+	- Then assign the variable to a property in HTML (within []).
+
+Event Binding:
+--------------
+This is when information flows from the view to the component.
+For e.g.; a mouse click on a button.
+Specify the event within parentheses () without the "on" for the event.
+For e.g.;
+<button (click)="demo();">Click Me</button>
+
+Two-way binding (ngModel):
+--------------------------
+Two-way binding mechanism is where data flows from the component to the view and back.
+This ensures that both the component and the view are in-sync at all times.
+Any changes made on either side will be reflected on the other.
+The general syntax to denote a 2-way binding is to use a combo of square brackets and parentheses, [()] and specifying "ngModel" within them followed by the variable to be bound.
+To use ngModel, we have to first import and register FormsModule in app.module.ts
+import { FormsModule } from '@angular/forms';
+:
+@NgModule({
+  declarations: [
+	:
+  ],
+  imports: [
+	:,
+    FormsModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+
+- class binding: styles, but for dynamically adding or removing CSS classes.
+- style binding: one-way binding of CSS styles.
