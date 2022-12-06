@@ -364,3 +364,32 @@ import { FormsModule } from '@angular/forms';
 
 - class binding: styles, but for dynamically adding or removing CSS classes.
 - style binding: one-way binding of CSS styles.
+
+Sharing data between components using @Input and @Output:
+---------------------------------------------------------
+Angular has 2 decorators @Input and @Output to share data b/w components.
+Input specifies which properties on a component you can set from a parent component.
+Output identifies the events a component can fire to send the data up the hierarchy to it's parent component.
+
+Create a new project:
+ng new inout
+
+Create 2 components
+ng g c parent
+ng g c child
+
+Angulra - Directives:
+---------------------
+Structural Directives: change the structure of the DOM by adding or removing elements on the page.
+- *ngIf and else
+- *ngFor
+- *ngSwitch
+
+
+ng generate component components/character
+ng generate class classes/character
+ng generate service services/character
+
+Attribute Directives:
+- ngStyle
+- ngClass
