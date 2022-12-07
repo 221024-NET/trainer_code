@@ -1,0 +1,12 @@
+<!-- app.component.html -->
+
+<p [appHighlight]="'yellow'">Highlighted Text!</p>
+
+<h1>Log Example</h1>
+<form (submit)="logMessage($event, userInput.value)">
+  <input #userInput placeholder="Type a message...">
+  <button type="submit">SUBMIT</button>
+</form>
+
+<h3>Delete Logged Messages</h3>
+<button type="button" (click)="clearLog()">CLEAR</button>
