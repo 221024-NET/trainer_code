@@ -1,0 +1,81 @@
+<p>test works!</p> 
+<div *ngIf="true">Display data</div>
+
+<p>ngIfElse example!</p> 
+<div *ngIf="isLogIn; else isLogOut"> 
+   Hello you are logged in 
+</div>
+<ng-template #isLogOut> 
+   You're logged out.. 
+</ng-template>
+
+<h2>ngFor directive</h2> 
+<ul> 
+   <li *ngFor="let l of list">
+      {{l}} 
+   </li>
+</ul>
+
+<div>
+   <p>Using ngFor with index:</p>
+   <ul> 
+      <li *ngFor="let student of studentArr; let i = index">
+         {{ i }} : {{student.name}} 
+      </li>
+   </ul>
+</div>
+
+<!-- trackBy -->
+<ul> 
+    <li *ngFor="let student of studentArr; trackBy: trackByData">
+        {{student.name}} 
+    </li>
+</ul>
+
+<h2>ngSwitch directive</h2> 
+<ul [ngSwitch]="logInName"> 
+   <li *ngSwitchCase="'user'"> 
+      <p>User is logged in..</p> 
+   </li> 
+   <li *ngSwitchCase="'admin'"> 
+      <p>admin is logged in</p> 
+   </li> 
+   <li *ngSwitchDefault> 
+      <p>Please choose login name</p> 
+   </li> 
+</ul>
+
+<!-- ngStyle -->
+<p [ngStyle]="{'color': 'blue', 'font-size': '14px'}"> 
+    paragraph style is applied using ngStyle 
+</p>
+
+<div>
+    <p [ngStyle]="{backgroundColor: getColor()}"  
+    [ngClass]="{Online: serverStatus === 'Online'}">  Server  with ID {{serverID}} is {{serverStatus}}. </p>  
+</div>
+
+<!-- ngClass -->
+<div class="container"> 
+    <br/> 
+    <div *ngFor="let user of users" [ngClass]="{ 
+       'highlight':user.userName === 'User1' 
+    }"> 
+       {{ user.userName }} 
+    </div> 
+</div>
+
+<h1 appCustomstyle>This text is formatted using a custom style directive.</h1>
+
+<h3>ng-template</h3> 
+<ng-template>ng-template tag is a virtual element</ng-template>
+<ng-template [ngIf]=true> 
+    <div><h2>ng-template works!</h2></div> 
+</ng-template>
+
+<!-- ngForOf -->
+<div> 
+    <ng-template ngFor let-item [ngForOf]="Fruits" let-i="index"> 
+        <p>{{i}} - {{item}}</p> 
+    </ng-template> 
+</div>
