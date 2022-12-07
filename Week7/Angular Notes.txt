@@ -414,7 +414,7 @@ Angular - DI (Dependency Injection):
 Used for injecting services into components.
 For e.g.; you will have to create a service in Angular that will consume an API (written in any other language).
 To use this service in a ng component, you have to make sure it is "injected" first (registered) so that it cdna be used by any component in your project.
-Yo register the service in the app.module.ts file under the "providers" section of the @NgModule decorator.
+You register the service in the app.module.ts file under the "providers" section of the @NgModule decorator.
 @NgModule({
   declarations: [
 	<components>,
@@ -431,6 +431,17 @@ Yo register the service in the app.module.ts file under the "providers" section 
   bootstrap: [AppComponent]
 })
 
+Or specify the DI in the service itself in the "providedIn" property of the @Injectible directive:
+import { Injectable } from '@angular/core';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class LoggerService {
+	:
+	:
+}
+
 To create a service, run the command:
 ng generate service <service_name>
 This will generate a .ts file with a class and a decorator @Injectable.
@@ -443,3 +454,104 @@ ng generate service services/logger
 OR
 ng g s services/logger
 
+Creating a custom directive:
+ng generate directive directives/highlight
+
+Creates a class with the decorator @Directive.
+A directive is like a component, but without the template (.html).
+
+Angular - HttpClient:
+=====================
+The front-end app has to communicate with back-end services, like APIs, to get / send data over HTTP.
+Calling APIs is actually done using the XmlHttpRequest object.
+In ng, we use the HttpClient to make calls to APIs.
+It's abuilt-in "service", and since it is a service, it will have to be injected so that it can be used in any service that we create in our project.
+
+In ASP.NET Web API, the APIs were by default async and using async-await mechanism for the API methods (web methods).
+In ng, to make async calls to the API service, we use RxJS Observables.
+an Observable is very similar to a Promise in JS and it helps manage async code.
+It is not part of core JS, but it is from a very popular obervable library RxJS, i.e.; "Reactive eXtension for JavaScript".
+When using HttpClient to make API calls, you have to remember certain steps as it returns observables:
+- You subscribe to an API call and it will initiate the request. If you do not subscribe, nothing will happen.
+- When get() request (or any request) returns successful, the observable emits the result back and is then complete.
+- When get() request (or any request) fails, the observable emits the error.
+
+ng new httpclient-app
+ng generate service services/Http
+
+GET https://jsonplaceholder.typicode.com/posts			Get all posts
+GET https://jsonplaceholder.typicode.com/posts/1		Get a post.
+POST https://jsonplaceholder.typicode.com/posts			Create a new post.
+	- you pass the data in the body of the request.
+PUT https://jsonplaceholder.typicode.com/posts/1		Update a post.
+	- you pass the data in the body of the request.
+DELETE https://jsonplaceholder.typicode.com/posts/1		Deletes a post.
+
+
+GET https://jsonplaceholder.typicode.com/products			Get all products.
+GET https://jsonplaceholder.typicode.com/products/1		Get a product.
+POST https://jsonplaceholder.typicode.com/products			Create a new product.
+	- you pass the data in the body of the request.
+PUT https://jsonplaceholder.typicode.com/products/1		Update a product.
+	- you pass the data in the body of the request.
+DELETE https://jsonplaceholder.typicode.com/products/1		Deletes a product.
+
+ng generate service services/HttpCrudDemo
+
+ng generate interface interfaces/BaseUser
+ng generate class classes/User
+ng generate service services/User
+
+Pipes:
+======
+ng new pipes-app
+ng g c components/pipes
+
+In slicing, [start:end], it goes from the "start" index, upto "end" index minus 1.
+INDEXING STARTS FROM 0 and not 1.
+Fruits = ["apple", "Orange", "Grapes", "Mango", "Kiwi", "Watermelon"];
+For [1:4] -> from 1 to 3 Orange, Grapes, Mango
+For [2:7] -> from 2 to 6
+Negative index means start from the end. Does not start from 0 or -0. It starts from -1. -1 is the last element.
+[-2] will give the last 2 elements of the array. Kiwi, Watermelon
+[-4:-2]: Grapes, Mango
+
+ng generate pipe pipes/DigitCount
+
+Angular Routing:
+================
+angulra Router is a powerful JS library buit for routing created and maintained by the Angular team.
+Part of the @angular/router package.
+The library provides a complete routing feature router outlets, path matching strategies and access to route parameters.
+
+<router-outlet></router-outlet>:
+--------------------------------
+It is a directive part of this library.
+Where it is specified in the template, renders the component that gets matched based on the browser's url.
+
+Routes and Path:
+-----------------
+We map a path to a component (a redirect to a path).
+For e.g.:
+{ path: 'contacts', component: ContactListComponent }
+So, http://localhost:4200/contacts will render the ContactListComponent's template.
+
+And these mappings are to be provided a file named app-routing.module.ts
+
+{path: '', pathMatch: 'full', redirectTo: 'contacts'}  
+So, the url http://localhost:4200 will redirect to the "contacts" path and render the ContactListComponent's template.
+So, http://localhost:4200 will be same as http://localhost:4200/contacts.
+
+Creating a fake api:
+In your project folder:
+npm install --save angular-in-memory-web-api
+
+
+Forms:
+======
+
+Unit Testing:
+============
+
+Deploy Angular Apps:
+====================

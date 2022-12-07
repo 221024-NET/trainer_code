@@ -1,0 +1,85 @@
+<div> 
+    <p>Today's date :- {{ presentDate }}</p>
+    <p>Today's date :- {{presentDate | date }}</p>
+</div>
+
+<div> 
+    <h2>Pipe with Parameters:</h2>
+    Short date :- {{presentDate | date:'shortDate' }} <br/>
+    Full date :- {{presentDate | date:'fullDate' }} <br/> 
+    Formatted date:- {{presentDate | date:'M/dd/yyyy'}} <br/> 
+    Hours and minutes:- {{presentDate | date:'h:mm'}} 
+</div>
+
+<div> 
+    <h2>Chained Pipes:</h2>
+    Date with uppercase :- {{presentDate | date:'fullDate' | uppercase}} <br/>
+    Date with lowercase :- {{presentDate | date:'medium' | lowercase}} <br/>  
+</div>
+
+<div> 
+    <h2>Built-in Pipes: Async Pipe:</h2>
+    Seconds changing in Time: {{ timeChange | async }}
+</div>
+
+<div style="text-align:center"> 
+    <h2>Built-in Pipes: Currency Pipe:</h2>
+    <p>{{ price | currency:'EUR':true}}</p> 
+    <p>{{ price | currency:'EUR': false}}</p> 
+    <p>{{ price | currency:'INR' }}</p> 
+    <p>{{ price | currency:'INR': false }}</p> 
+</div> 
+
+<div> 
+    <h2>Built-in Pipes: Slice Pipe:</h2>
+    <p>Start index:- {{Fruits | slice:2}}</p> 
+    <p>Start and end index:- {{Fruits | slice:1:4}}</p> 
+    <p>Negative index:- {{Fruits | slice:-2}}</p> 
+    <p>Negative start and end index:- {{Fruits | slice:-4:-2}}</p> 
+</div>
+
+<div style="text-align:center"> 
+    <h2>Built-in Pipes: Decimal Pipe:</h2>
+    <p> {{decimalNum1 | number}} </p> 
+    <p> {{decimalNum2 | number}} </p> 
+</div> 
+
+<div style="text-align:center"> 
+    <h2>Built-in Pipes: Decimal Pipe with Formatting:</h2>
+    <p> Apply formatting:- {{decimalNum1 | number:'3.1'}} </p> 
+    <p> Apply formatting:- {{decimalNum1 | number:'2.1-4'}} </p> 
+    <h3>More formatting:</h3>
+    <p>
+        {{ decimal_value }} with no formatting: {{ decimal_value | number }}
+        is same as {{ decimal_value | number:'1.0-3' }}
+    </p>
+    <p>
+        Digit Info Parameter (3.1-5):
+        {{ decimal_value | number:'3.1-5' }}
+    </p>
+<p>
+    Decimal pipe with locale france:
+    {{decimal_value | number:'4.5-5':'fr'}}
+    <br>
+    {{decimal_value | currency: 'CAD': 'symbol': '4.5-5':'fr'}}
+</p>
+</div> 
+
+<div style="text-align:center"> 
+    <h2>Built-in Pipes: Percent Pipe:</h2>
+    <h3>Decimal Pipe</h3> 
+    <p> {{percentNum | percent:'2.2'}} </p> 
+</div> 
+
+<div style="text-align:center"> 
+    <h2>Built-in Pipes: Json Pipe:</h2>
+    <p ngNonBindable>{{ jsonData }}</p> 
+    <p>Data without Json pipe: {{ jsonData }}</p> 
+    <p ngNonBindable>{{ jsonData | json }}</p> 
+    <p>Data with Json Pipe: {{ jsonData | json }}</p> 
+</div> 
+
+<div> 
+    <h2>Custom Pipes: DigitCount Pipe:</h2>
+    <p>{{ digits | digitCount }}</p> 
+</div> 
