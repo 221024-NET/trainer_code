@@ -327,7 +327,7 @@ Use it in the component.html file by specifying it between double-curly braces, 
 Property Binding:
 -----------------
 It is a one-way binding mechanism that allows you to set the properties of HTML elements.
-Use the square-brackets [] for data binding in the HTML.
+Use the square-brackets [] for one-way data binding in the HTML.
 Include the property to be set in [] and then provide the variable.
 Info flows from component to the view.
 	- Define a variable in the component and set it's value.
@@ -390,6 +390,56 @@ ng generate component components/character
 ng generate class classes/character
 ng generate service services/character
 
-Attribute Directives:
+07-Dec-2022:
+============
+Attribute Directives: they change the behavior or appearance of DOM elements.
 - ngStyle
 - ngClass
+- ngModel
+
+ng generate class classes/user --skip-tests=true	// Will not generate the .spec.ts file.
+ng g c components/AttrDirectives
+
+Two-way binding for a dropdown:
+ng generate class classes/product --skip-tests=true
+ng g c components/dropdown
+
+The <select> element has an onchange event that triggers every time you change the selection on a dropdown.
+<select onchange="foo();">
+In angular, bind a method to the (change) event.
+<select (change)="foo()">
+
+Angular - DI (Dependency Injection):
+------------------------------------
+Used for injecting services into components.
+For e.g.; you will have to create a service in Angular that will consume an API (written in any other language).
+To use this service in a ng component, you have to make sure it is "injected" first (registered) so that it cdna be used by any component in your project.
+Yo register the service in the app.module.ts file under the "providers" section of the @NgModule decorator.
+@NgModule({
+  declarations: [
+	<components>,
+	:
+  ],
+  imports: [
+	<modules>,
+	:
+  ],
+  providers: [
+	<services>,
+	:
+  ],
+  bootstrap: [AppComponent]
+})
+
+To create a service, run the command:
+ng generate service <service_name>
+This will generate a .ts file with a class and a decorator @Injectable.
+
+1. Create a new project: ng new <project_name>
+2. cd <project_name>
+3. ng serve
+4. Run:
+ng generate service services/logger
+OR
+ng g s services/logger
+

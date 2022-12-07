@@ -1,0 +1,21 @@
+<h2>attr-directives works!</h2>
+<!-- ngStyle -->
+<p [ngStyle]="{'color': 'blue', 'font-size': '14px'}"> 
+    paragraph style is applied using ngStyle 
+</p>
+
+<div>
+    <p [ngStyle]="{backgroundColor: getColor()}"  
+    [ngClass]="{Online: serverStatus === 'Online'}">  Server  with ID {{serverID}} is {{serverStatus}}. </p>  
+</div>
+
+<!-- ngClass -->
+<div class="container"> 
+    <br/> 
+    <div *ngFor="let user of users" [ngClass]="{ 
+       'highlight':user.userName === 'User1' 
+    }"> 
+       {{ user.userName }} 
+    </div> 
+</div>
+
