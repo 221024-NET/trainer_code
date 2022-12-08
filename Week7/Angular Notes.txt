@@ -518,6 +518,8 @@ Negative index means start from the end. Does not start from 0 or -0. It starts 
 
 ng generate pipe pipes/DigitCount
 
+08-Dec-2022:
+============
 Angular Routing:
 ================
 angulra Router is a powerful JS library buit for routing created and maintained by the Angular team.
@@ -546,6 +548,35 @@ Creating a fake api:
 In your project folder:
 npm install --save angular-in-memory-web-api
 
+Router Guards:
+--------------
+That allows is to do some logic when a route is requested and based on that logic, it either allows or denies access to that route.
+
+ng g guard guards/Check
+
+Creates a service that implements CanActivate interface.
+Implement the canActivate() method in this service and based on certain rules, either return true of false.
+And in the app-routing.module.ts, when defining a route, add the guard as follows:
+const routes: Routes = [
+	:
+	{path: 'contact/:id' , component: ContactDetailComponent, canActivate: [CheckGuard]}
+];
+
+Multiple outlets:
+-----------------
+<router-outlet></router-outlet>
+You can define names for specific router outlets and decide which component gets rendered in which outlet.
+
+Specify the "named" outlet on any htlm page you want:
+<router-outlet name="Customer"></router-outlet>
+
+In your app-routing.module.ts, specify the outlet for the route:
+const routes: Routes = [
+	:
+	{path: 'customer' , component: CustomerComponent, outlet: 'Customer'}
+];
+
+This will render the customerComponent wherever the "Customer" outlet is specified.
 
 Forms:
 ======
@@ -583,7 +614,165 @@ ng g c components/hero-form
 
 
 Unit Testing:
-============
+=============
+Unit Testing: test the smallest unit of work (method).
+Integration Testing: testing the work of all developers when merged together. This is done before system testing, which is done by the testing team (QA).
+System Testing: This is where the entire system/application is thoroughly tested by the testing team, with different sets of data.
+Smoke Test: just ensure things are fine on PROD by randomly testing some parts of the app before releasing to users.
+Security Testing / Penetration Testing: This usually is done by a specialized team who are very good at "security". they validate the security part of the app, things like authentication, authorization, access etc.
+	- Authentication: Verifying if the user is valid or not.
+	- Authorization: Once authenticated, verify if the user has access to parts of the app.
+Automation Testing: nothing by automating the system testing by testers. Create scripts that will run on the UI of the application similuating user input and record the results. One of the most popular tools is Selenium (Java-based).
+Load Testing: Which in a way uses the script for automation testing. This requires special tools. Usually these tools are quite expensive.
+Usually in unit testing, DB is not updated, or at-least a DB in use by DEVs or TESTERS is not used for unit testing.
+If indeed DB is to be used, you clone the DB for unit testing and then use that for unit testing.
+OR, you mock the data!
+You also mock API calls.
+
+Anuglar Unit Testing: Jasmine & Karma:
+======================================
+Jasmine:
+--------
+A free, open-source framework that can run on any JS-enabled platform.
+Based on BDD (Behavior Driven Development).
+You describe the tests in a human-readable form (so that even non-devs can read and understand what is being done).
+Can be used to test UI (DOM).
+
+Karma:
+------
+A task runner (an engine) for the tests written using Jasmine.
+
+How do we write tests:
+----------------------
+Tests are written in the specific .spec.ts files.
+There are 3 main methods in this test file:
+- describe(): is a suite of Test scripts that calls a particular Jasmine function with two parameters:
+	1. a string: the name of Test Suite.
+	2. a function: that performs the actual test.
+	describe() is a "test suite".
+	Can have a beforeEach() block where you can initialize some variables to be used by the tests.
+	The beforeEach() block gets executed before each and every it() (unit tests) runs.
+- it(): Is the smallest unit test case that is written to be executed, which calls the global Jasmine function with 2 params:
+	1. a string: the name of Unit Test Case.
+	2. a function: that performs the actual test.
+	There can be mulitple it() functions within a describe()
+	it() are individual "unit test cases".
+- expect(): Every it() has an expect() function which takes a value and expects a return as "true". If it does not get "true", the test fails.
+
+
+REMEMBER THE 3-As:
+- Arrange
+- Act
+- Assert
+
+Angular Test Bed (ATB):
+-----------------------
+ATB is a high-level Angular only testing framework.
+It allows us to easily test the behavior of our app on Angular Framework.
+In our beforeEach() of our test suite, we configure a testing module using the TestBed class.
+We can then use this module to instantiate components, perform DI etc.
+
+Mocking:
+--------
+Performing tests with dummy data or dummy APIs.
+
+Mocking with Spies:
+-------------------
+A Spy is a feature of Jasmine that lets you take an existing class, function or object and mock it in such a way that you can control what gets returned from function calls.
+
+Code Coverage:
+--------------
+
+foo(num: number) {
+	:
+	:
+	if(num < 10) {
+		:
+	} else if(num >= 10 && num < 50) {
+		:
+	} else if(num >= 50 && num < 75) {
+		:
+	} else if(num >= 75) {
+		:
+	}
+	:
+	:
+}
+
+foobar() {
+
+}
+
+
+foo(25)	it has not tested the code for all the "if" condition blocks.
+Which means, all code has not been unit tested and code coverage is not 100%.
+So, write:
+foo(5)
+foo(25)
+foo(65)
+foo(85)
+
+foobar()
+foobar()
+
+ng test --code-coverage						// keeps running and displays the Karma window.
+ng test --code-coverage --no-watch			// closes the Karma window.
+
+To run code coverage everytime you do an ng test, then change the config:
+In angular.json:
+"test": {
+	"options": {
+		:
+		"codeCoverage": true
+	}
+}
+
+Now when you run ng test, it will also give code coverage.
+
+TDD: Test Driven Development:
+-----------------------------
+First, create your skeleton code (classes, functions etc.).
+You write your tests first, make them fail initially.
+Then, finish each function one at a time and also parallely, write the actual unit tests for that function and ensure the tests for that function pass.
 
 Deploy Angular Apps:
 ====================
+Webpack and Minification:
+-------------------------
+Webpack:
+Creates a "bundle" of your code, assets (images, videos), JS files, css, html in the form of a package that is compressed, which can be used for deployment.
+
+Minification:
+-------------
+Many of the CSS and JS files are quite huge.
+To deploy apps with such huge files, it will be time consuming to send these files over the internet.
+Minification is the process of reducing the size of JS and CSS drastically.
+
+To deploy from github:
+----------------------
+Add angular-cli-ghpages to your project:
+ng add angular-cli-ghpages
+
+ng deploy --base-href <repository name>
+ng deploy --base-href https://AjaySingala.github.io/forms-app
+
+
+Cloning a new repo:
+===================
+After your clone a new repo to your local machine, node_modules folder will be missing.
+So, ng serve will not work.
+Just run: npm install
+This will create the node_modules and d/l all the necessary packages.
+Then run: ng serve.
+
+Security and Identity:
+======================
+1. Register server app (API) with the IDaaS provider.
+2. IDaaS gives a clientId and a secret (secret and access token).
+3. Use these clientid+secret to get a token for every user that logs in. So, from the client app:
+	3.1 Call the IDaaS API and send the clientid+secret for validation.
+	3.2 If verified, returns a "user token" that comes with an expiry.
+4. Every new request from the client app sends the "user token" to the server app in the request header (the Authorization attribute of the request header).
+5. The server app validates the user token it received with the IDaaS to check if the token is valid and not expired.
+6. If all ok, request processed else returns ERROR to client app and user has to Login again.
+
