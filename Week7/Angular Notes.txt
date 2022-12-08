@@ -549,6 +549,38 @@ npm install --save angular-in-memory-web-api
 
 Forms:
 ======
+Forms are used for handle user data.
+Two types:
+- Template Driven Forms
+- Reactive Forms
+
+Template Driven Forms:
+----------------------
+Created using directives in the template.
+Mainly used to create simple form application.
+
+ng new forms-app
+import FormsModule in app.module.ts
+ng g c components/form
+
+Reactive Forms:
+---------------
+Created inside component class, hence also referred to as model-driven forms.
+Every form control will have an object available in the component. This provides greater control and flexibility on the behavior of the form and ability to program the form.
+Reactive Forms are based on structured data model.
+
+import ReactiveFormsModule in app.module.ts
+
+Reactive Forms concepts:
+- FormControl: Defines the basic functionality of an individual form control.
+- Form Group: Used to aggregate the values of a collection form control.
+- FormArray: Used to aggregate the values of form control into an Array.
+- ControlValueAccessor: Acts as an interface between the Forms API to HTML DOM elements.
+
+ng g c components/ReactiveForm
+
+ng g c components/hero-form
+
 
 Unit Testing:
 ============
