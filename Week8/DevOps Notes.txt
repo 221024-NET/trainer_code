@@ -268,7 +268,21 @@ The "docker compose" command uses a .yaml or .yml file used to configure, build 
 
 docker compose up -d
 	-d : build and run the container in detached mode. Run the container and come back to the terminal.
+
+List processes running with compose:
+docker compose ps
 	
+List containers:
+docker ps
+OR
+docker container ls
+
+Check logs:
+docker compose logs -f <service_name>		# Service name comes from the docker-compose.yml file.
+
+Clean up:
+docker compose down
+
 Execute commands on the container:
 docker exec <containerid> <cmd>
 docker exec -i -t <containerid> <cmd>		# interactive mode
@@ -341,3 +355,21 @@ docker stack rm getstartedlab
 
 8. Leave the cluster.
 docker swarm leave -f    	(-f: force)
+
+Running multiple containers:
+============================
+Demo:
+- A .NET Core app that connects to MySQL database.
+- 2 containers:
+	1. MySQL DB
+	2. The .NET app
+
+Volumes: Are storage attached to containers.
+- define a volume (and give it a name).
+- associate that volume with a container.
+- Any data stored on the container will be persisted on the volume and be available even after the container has stopped.
+- The next time the container runs, it can read the earlier data as well because the volume does not get erased.
+- You can delete the volume also, if required.
+
+docker volume ls
+docker volume rm <volume name>
