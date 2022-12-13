@@ -1,0 +1,343 @@
+12-Dec-2022:
+============
+Virtual Machines (VMs):
+	- are machines running on other machines.
+	- are very portable. All information and data is stored in a single file that can be copied to other machines easily.
+	- create as many VMs as you like, but you can only run as many VMs on a single machine as much of RAM is available on the physical machine, which is the "host" machine.
+	- Every VM has it's own "guest O/S" and set of libraries / frameworks as required.
+	- They do not use the O/S or other lib of the host machine.
+	
+The host machine requires a "hypervisor" to host and run VMs.
+	- Oracle Virtual Box.
+	- Hyper-V.
+	- VMWare.
+You have to enable Virtualization in the BIOS.
+
+Cloud Computing:
+----------------
+	- Use data (resources) that are available on another machine and not yours.
+	- Some cloud service providers (CSP):
+		- AWS (Amazon Web Services).
+		- Microsoft Azure.
+		- GCP (Google Cloud Platform).
+
+VMs provisioned will be accessed over the internet...which is represented as a "cloud".
+- It can be accessed from anywhere as long as you have good internet connection. From office, from work, from someone else's machine (as long as you remember the connection details).
+- Once the VM is provisioned, you get a URL for it, which also converts internally to an IP Address.
+- You will also require your CSP credentials to connect to the VM.
+- The same physical box (on the CSP's Data Center) can host VMs of different users.
+- Resources are SHARED!!!
+- When you delete or stop your VM, you will not be charged for it.
+
+
+On-Premise Servers:
+-------------------
+Scale up (Vertical Scaling): Adding more resources to an existing server.
+	- increase the RAM.
+	- add more cores.
+	- add more disk space etc.
+
+Servers share the load: Load Balancing.
+Scale Out (Horizontal Scaling): Add more servers to share the load.
+
+Provisioning new servers in companies is time-consuming:
+	- You need approvals.
+	- You will invite quotes from different vendors.
+	- You will decide on one of the vendors.
+	- After order is placed, the server will arrive in 2-5 days.
+	- After the server has arrived, installing and configuring will take another 2-3 days.
+	- After configuration, 2-3 days of testing (to ensure it is working properly).
+	- And then put in on the network for usage.
+
+Servers mostly are under-utilized.
+You end up spending more upfront (Capital Expenditure - CapEx).
+Servers need:
+	- a room
+	- electricity (light, AC, power etc.)
+	- engineer (to maintain, monitor etc.) (salary).
+	- licenses (if any) of required O/S and other tools.
+	
+All of this adds to the cost (CapEx).
+
+With Cloud:
+	- you only pay for what you use.
+	- as long as the VM is running, you get charged.
+		- it's in cents per hour.
+	- if the VM is not running, you don't pay anything.
+	- You get billed monthly (Operating Expenditure - OpEx).
+	- You also get charged for the storage (the VM is a file that is stored somewhere).
+		- very cheap.
+
+Principles of Cloud Computing:
+------------------------------
+Accessible anywhere, anytime.
+Shared Resources.
+Pay for what you use.
+Security.
+
+
+Load Balancing can be done on cloud as well.
+CSPs guarantee 99.99% up time SLA (Service Level Agreement).
+	- This % keeps going up the more VMs you add for load-balancing
+	- 99.999994%, 99.999995%
+	
+Types of clouds:
+- Public
+- Private
+- Hybrid
+	- mix of public and private.
+	
+Cloud Services:
+- On-Premise: Everything is to managed by you.
+- IaaS: Infrastructure as a Service.
+	- CSP provides the resource, you manage it.
+	- The virtualization, the phyiscal servers, the storage servers, networking infra etc. is managed by the CSP.
+	- You manage any application you run, any middleware, any data you store, any O/S you install.
+	- Compute, EC2 (Elastic Compute Cloud)
+		- Resources (VMs, RAM, Disk space, networking etc.)
+	- Storage:
+		- Cloud storage (AWS S3 - Simple Storage Service).
+		- Database (SQL Server, Oracle, MongoDB, MySQL, PostgreSQL,...)
+- PaaS: Platform as a Service.
+	- Provides a platform for software development.
+	- The O/S, Middleware, the virtualization, the phyiscal servers, the storage servers, networking infra etc. is managed by the CSP.
+	- You manage the application and the data.
+	- Windows Azure itself is a PaaS, AWS Elastic Beanstalk, SalesForce for Developers (force.com), Google App Engine.
+- SaaS: Software as a Service.
+	- Everything is managed by the CSP.
+	- Gmail, O365, Dropbox, Netflix, Amazon Prime.
+
+- IDaaS: Identity as a Service.
+	- AWS, Azure, GCP
+	- AWS IAM (Identity and Access Management).
+- DBaaS: DataBase as a Service
+- IoT: Internet of Things.
+- Media as a Service
+
+Docker and Containers:
+======================
+Docker is a platform for developers / system adminstrators to develop, deploy and run applications with "containers".
+
+Containers are like VMs, but not actual VMs.
+
+Docker uses images to run as containers.
+First, you need an image based on which, you can create and configure your own custom images.
+Once your custom image is ready, you run them with Docker.
+Docker will take that image and run it as a "container".
+Due to the reduced size of these containers, we can run multiple containers on our workstations.
+
+Once a custom image for your application development is ready, store it in a repository and share with other team members.
+They will just pull this image and directly run it as a container.
+These images can also be used for deployment to different environments like TEST, STAGING and PROD.
+
+You can create exact environments like your PROD and let users/developers build, deploy and run their apps on these containers.
+This avoids issues like "was running locally, but not running on server".
+
+Images:
+Tons of images available on "container repositories".
+Docker is the tool used for containerization.
+You can create your own images and publish it to the repositories.
+Docker has it's own repo, hub.docker.com
+
+Install Docker Desktop.
+Docker is used entirely from the CLI.
+
+Docker commands:
+docker --version
+docker version
+docker info
+
+# run a sample docker image:
+docker run hello-world
+
+# List images:
+docker image ls				ls stands for list.
+docker image ls	-a			ls stands for list. -a = ALL.
+
+# List containers:
+docker container ls			Will only show running containers (not the stopped ones).
+docker container ls -a		Show all containers, even the stopped ones. -a = ALL
+docker container ls --all	Show all containers, even the stopped ones. -a = ALL
+docker container ls -aq		Show the container list in "quite" mode. Shows only the container ids. q = quite mode.
+
+# Delete container:
+docker container rm <container_id>		rm = remove.
+
+# Delete image:
+docker image rm <image_id>
+
+Everytime you do a "docker run <image>", it will create a new container.
+
+To delete/remove containers, you have to first stop them. If they are not stopped, they cannot be deleted.
+
+# To delete container:
+docker container stop <container_id>
+docker container rm <container_id>
+
+To stop and delete all containers:
+docker container stop $(docker container ls -aq)
+docker container rm $(docker container ls -aq)
+
+Another image: busybox.
+docker run busybox echo "This is docker!"
+
+# Show docker processes:
+docker ps
+docker ps -a
+
+# To stop containers using the "ps" option:
+docker stop <containerId>
+docker rm <containerId>
+
+You can connect to Containers and run commands on it's shell.
+To connect to a containers in interactive mode:
+docker run -it <image> <cmd>
+
+docker run -it busybox sh
+
+Terminologies to remember:
+1. Images: these are the blueprints of any application that form the basis of containers.
+2. Containers: these are runtime instances of images. Created using docker run <image>.
+3. Docker Daemon: the main docker service running in the background on the host machine that manages building, running and distributing the containers.
+4. Docker client: the CLI tool that users use to interact with the daemon.
+5. Docker Hub: repository of docker images.
+
+# Pull specific docker image:
+docker pull ubuntu:18.04
+docker pull ubuntu:20.04
+
+For e.g.;
+you would take a raw ubuntu image, (using docker file scripting) install java, python etc. and create your own custom image.
+So your custom image is made up of the base ubuntu image plus some libs/bins.
+Here, the ubunut image is called the "Base image" and your custom image "child image".
+
+13-Dec-2022:
+============
+Dockerfile: is a "script" file that has all the commands required to create a new image.
+
+Sample Dockerfile:
+------------------
+# Use an official Python runtime as a parent image
+FROM python:3.8
+
+# Set the working directory to /app
+WORKDIR /usr/src/app
+
+# Copy the current directory contents into the container at /app
+COPY . .
+
+# Install dependencies and any needed packages specified in requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Make port 5000 available to the world outside this container
+EXPOSE 5000
+
+# Run app.py when the container launches
+CMD ["python", "app.py"]
+------------------
+
+Command to build the image:
+---------------------------
+docker build -t <docker username>/<image name> .
+
+<docker username>: your username as registered on hub.docker.com
+<image nanme>: is any name you want to give to the new image.
+
+docker build -t asingala/catnip .
+
+To run this container:
+docker run -p <local port>:<container port> --name catnip <username>/<image>
+
+docker run -p 8888:5000 --name catnip asingala/catnip
+
+# Check the container:
+docker container ls
+docker ps ls
+
+# Stop and Remove the container:
+docker container stop <containerId or containerName>
+docker stop <containerId or containerName>
+
+docker container rm <containerId or containerName>
+docker rm <containerId or containerName>
+
+Docker Compose:
+---------------
+YAML: Yet Another Markup Language
+The "docker compose" command uses a .yaml or .yml file used to configure, build and run multiple containers together instead of building and running each container separately using "docker build"
+
+docker compose up -d
+	-d : build and run the container in detached mode. Run the container and come back to the terminal.
+	
+Execute commands on the container:
+docker exec <containerid> <cmd>
+docker exec -i -t <containerid> <cmd>		# interactive mode
+
+docker exec <containerid> ls
+
+docker exec -i -t <containerid> sh
+# ls
+:
+:
+# pwd
+/app
+
+
+Copy/Push images to Docker hub:
+-------------------------------
+1. Create your image.
+2. Tag the image.
+
+docker tag <imagename> <username>/<repository>:tag
+
+docker tag friendlyhello asingala/get-started:part3
+
+3. Push the tagged image to your repo.
+docker push asingala/get-started:part3
+
+4. Run it directly:
+docker run -p 4000:80 asingala/get-started:part3
+
+Services:
+=========
+Services are used to scale our application and enable load balancing.
+Services are just containers running in production.
+Scaling a service changes the number of container instances running the application.
+Very easy to achieve using the docker-compose.yml file.
+
+To achieve scaling (load-balancing) of containers (services), we need to create a cluster environment.
+Cluster is made up of multiple servers.
+In Docker, the cluster is known as "Swarm".
+First create a swarm, then deploy your service to the swarm.
+
+1. start the swarm:
+docker swarm init
+
+2. Deploy the containers to the swarm:
+Syntax: docker stack deploy -c <compose yaml file> <name of the stack>
+docker stack deploy -c docker-compose.yml getstartedlab
+
+3. Check what services are running:
+docker service ls
+
+Service is not a container. It is made up of containers, a.k.a. tasks.
+
+4. List the tasks (containers) that the services are running:
+docker service ps <service name>
+docker service ps getstartedlab_web
+
+Each task is associated to a container.
+
+5. Inspect a task / conatiner:
+docker inspect <containerid> 
+docker inspect <taskid>
+
+6. To reduce (or increase) the no. of replicas (instance), change the "replicas" value in docker-compose.yml file and redeploy the stack.
+docker stack deploy -c docker-compose.yml getstartedlab
+
+7. Take down the swarm (cluster):
+docker stack rm <stack name>
+docker stack rm getstartedlab
+
+8. Leave the cluster.
+docker swarm leave -f    	(-f: force)
