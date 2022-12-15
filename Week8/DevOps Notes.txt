@@ -373,3 +373,130 @@ Volumes: Are storage attached to containers.
 
 docker volume ls
 docker volume rm <volume name>
+
+14-Dec-2022:
+============
+Multi-stage build:
+------------------
+First, you have to build the code / project. For this you require a lot of libraries, packages etc. from the framework.
+	- So, you have to use a docker image that is substantially larger in size.
+	- A full-fledged SDK (Software Development Kit) is required.
+Then, you take the output of the build and use it on another docker image to be executed as a container, and since execution does not require ALL the libraries, only a subset is required.
+	- So, a much smaller image of the framework is used.
+	- then, run the app from this image/container.
+	
+Now Docker uses the "Builder Pattern".
+Within the same Dockerfile, you can build the code and then copy it onto the image from where the app will run.
+	- This results in the image size being very small.
+	- This reduces the no. of dockerfiles required for each stage as everything is done in a single Dockerfile.
+	
+DevOps:
+=======
+Development + Operations.
+Development is done by developers / engineers / programmers who write the code.
+Operations is the team that does the deployment (and at times maintenance and monitoring) of the app to the server(s).
+Earlier, these were 2 different teams (set of people) who had specific roles & responsiblities.
+Devs were only responsible for coding and unit+integration testing.
+Ops were responsible for all deplyment related tasks, including configuring and maintain/monitor servers.
+
+Usually, the Ops team is very small. And the Ops resources (team members) would be shared across project teams.
+So, for e.g.; Ops team would have 2-3 members and they would manage the deplyment of any number project teams.
+In contrast, Dev teams are usually larger, at least 4-5 members per team, maybe more.
+
+Dev team completes a set of features that are to deployed to a TEST server.
+	- They will send a request to the Ops team to do the deployment (usually an email).
+	- The Ops team would expect a lot of info for the deployment
+		- where is the code (repo).
+		- which branch.
+		- where is the server.
+		- steps required for the deployment.
+		- where are release notes.
+	- The dev team usuall would almost half a day (maybe more) just preparing all this for the Ops team.
+	- The dev team does not have access to the servers, the Ops does.
+Once the Ops team receives the request, they put it in a "queue".
+	-1. They may be busy with deployment of other teams.
+		- So, they may not get to your request immediately. At times, after many hours or even the next day.
+		- Till it is not deployed, the app cannot tested by testing/dev team. Time wasted.
+	-2. The Ops resource(s) are not available at all (not well, on PTO etc.). Things get worse when people leave the company.
+Once the Ops team gets to the deployment request, they will just follow the setup instructions that have been provided.
+	- If there is any error, they will just revert back with the issue and get on to the next deployment.
+	
+The need was to somehow reduce this "dependency" on the Ops team and also automate the entire deployment process.
+That is where the concept of DevOps came into picture.
+
+Development process:
+During development, Devs do not have access to the "main" or "master" branch.
+All developer code is merged into a "development" branch (which is created from the main branch). 
+Each feature / use case is assigned to a developer.
+For every feature / use case to be developed, the assigned developer creates a new branch from the "development" branch.
+Once the Dev completes their work, they push the code to their feature branch. A pull-request is to be created for reivew+merge.
+The designated TL or Sr. Dev will review the code and if all ok, merge it into the devleopment branch.
+Once merged into the development branch, an automated process triggers off which will take the latest code from this branch and deploy it to the "dev" server.
+	Dev server is where the Dev team does thier integration testing.
+Once dev team is fine with the app, it promotes the deployment to the TEST server where testers will do their testing.
+
+Tools used for build+deploy:
+-Jenkins (Free)
+- TeamCity (Free, Enterprise, Cloud)
+- Azure DevOps
+-AWS CodeBuild+CodeDeploy+CodePipeline
+- Github Actions
+
+CI/CD:
+------
+Continuous Integration: build, create package for deployment, run unit tests.
+	- If the build fails, devs have to fix it and deployment will not happen.
+	- If unit tests fail, deployment will not happen.
+Continuous Deployment: the build package is deployed to the server.
+
+Promoting the deployment from one environment to the other is usually done manually.
+
+If the entire process is completely automated, where the deployment to subsequent environments is also done automacially, it is known as Continuous Delivery.
+
+Extreme Programming: requires a lot of expertise and the teams have to be very Agile and Experts at what they do.
+
+Now, with DevOps, the bifurcation b/w Dev and Ops has disappeared.
+	- Devs are expected to know a bit of Ops as well.
+	- You don't actually need a Ops team at all!!!
+	- You don't have to depend on the Ops team to get things done (deployment). 
+	- Ops team does most of the server related activities:
+		- setup, configure, network, security etc.
+		- monitoring.
+	- Ops team are expected to know a bit scripting.
+		- Scripting can also be done for creating, upgrading, managing servers.
+		- Docker, Kubernetes (cluster management platform for containers).
+		
+GitHub Actions:
+===============
+Used to create pipelines / workflows for  CI/CD.
+SonarCloud / SonarQube (FREE)
+	- sonarcloud.io
+	- Used to perform "static analysis" of your code.
+		- Checks for possible bugs, code optimization, vulnerabilities, coding standards, code coverage etc. on your code.
+		- Create Quality Gates
+			- setup rules:
+				- Code Coverage should be > 80%
+				
+Deploy .NET Web API to Azure App Service.
+
+15-Dec-2022:
+============
+Deploy an Angular application to Azure App Service.
+
+Ways to create deployments using GitHub Actions:
+1. When creating an Azure App Service, also specify the deployment details:
+	- the github repo
+	- the branch to deploy from
+	This will create the .github/workflows/<branch>_<appservicename>.yml file that can be modified, if required.
+	This will also create the Azure App Service "secret" in your repo.
+2. You create the deployment from Github.
+	- Actions -> New Workflow -> Select deployment options
+	This will create the .github/workflows/<branch>_<appservicename>.yml file that can be modified, if required.
+	This will also create the Azure App Service "secret" in your repo.
+3. Create the .yml file and all required secrets manually.
+	
+Note:
+- Instead of Azure, the deployment could be on any other cloud.
+- Steps remain the same.
+
+This is just 1-time activity. Not done daily. Changes are done only when either environments change, urls change, an extra step is to be added / removed etc.
