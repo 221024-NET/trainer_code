@@ -1,8 +1,14 @@
+11-Dec-2023:
+============
 SQL:
 ====
 1. Normalization
 	1NF, 2NF, 3NF
 	Explain the rules of these 3 NFs.
+	
+1NF: A cell (column value) in a table must not have multiple values.
+For e.g.; Phone number.
+
 	
 2. Query to delete duplicate records.
 	For e.g.; students table.
@@ -110,3 +116,19 @@ AS (
 )
 SELECT * FROM cte_rank_salary
 WHERE SalaryDenseRank <= 5
+
+12-Dec-2023:
+============
+C#:
+===
+1. Research on what these are?
+2. How they work?
+3. Demo code.
+
+Extension Methods:
+------------------
+Create a couple of different extension methods for demo.
+
+EF Core with Stored Procedures:
+-------------------------------
+At least 2 SPs and use them from EF Core (C# code).
