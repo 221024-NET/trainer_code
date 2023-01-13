@@ -132,3 +132,45 @@ Create a couple of different extension methods for demo.
 EF Core with Stored Procedures:
 -------------------------------
 At least 2 SPs and use them from EF Core (C# code).
+DbSet<entity>.FromSql()
+DbContext.Database.ExecuteSqlCommand()
+
+context.Customers.FromSql()
+context.Database.ExecuteSqlCommand()
+
+context.Database.ExecuteSqlCommand("CreateStudents @p0, @p1", parameters: new[] { "Bill", "Gates" });
+
+Create SP from EF Core:
+-----------------------
+# Step 1: Empty migration. (Code-first approach):
+Add-migration sp-GetStudents
+
+# Step 2: Modify the migration file's "Up" method:
+public partial class spGetStudents : Migration
+{
+    protected override void Up(MigrationBuilder migrationBuilder)
+    {
+        var sp = @"CREATE PROCEDURE [dbo].[GetStudents]
+                    @FirstName varchar(50)
+                AS
+                BEGIN
+                    SET NOCOUNT ON;
+                    select * from Students where FirstName like @FirstName +'%'
+                END";
+
+        migrationBuilder.Sql(sp);
+    }
+
+    protected override void Down(MigrationBuilder migrationBuilder)
+    {
+
+    }
+}
+
+# Step 3: Update the database to create the SP:
+Update-Database
+
+HackerRank challenges:
+https://www.hackerrank.com/c-the-coin-change-problem
+
+
